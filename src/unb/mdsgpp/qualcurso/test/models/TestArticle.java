@@ -2,6 +2,8 @@ package unb.mdsgpp.qualcurso.test.models;
 
 
 import android.database.SQLException;
+import android.test.AndroidTestCase;
+
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -9,12 +11,13 @@ import libraries.DataBaseStructures;
 import models.Article;
 
 
-public class TestArticle extends TestCase{
+public class TestArticle extends AndroidTestCase{
 	
 	@Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        DataBaseStructures db = new DataBaseStructures();
+	public void testAndroidTestCaseSetupProperly() {
+		super.testAndroidTestCaseSetupProperly();
+		DataBaseStructures db = new DataBaseStructures();
+		db.dropDB();
 		db.initDB();
 		Article article = new Article();
 		article.setPublishedJournals(Integer.parseInt("1"));
@@ -30,8 +33,6 @@ public class TestArticle extends TestCase{
 	@Override
 	protected void tearDown() throws Exception{
 		super.tearDown();
-		DataBaseStructures db = new DataBaseStructures();
-		db.dropDB();
 		
 	}
 

@@ -1,20 +1,27 @@
 package unb.mdsgpp.qualcurso.test.models;
 
 import android.database.SQLException;
+import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
+import junit.extensions.TestSetup;
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import libraries.DataBaseStructures;
 import models.Course;
 import models.Institution;
 
 
-public class TestInstitution extends TestCase{
+public class TestInstitution extends AndroidTestCase{
 
+	
 	@Override
-    protected void setUp() throws Exception {
+	public void testAndroidTestCaseSetupProperly() {
+		super.testAndroidTestCaseSetupProperly();
 		DataBaseStructures db = new DataBaseStructures();
+		db.dropDB();
 		db.initDB();
 		Institution institution = new Institution();
 		institution.setAcronym("one");
@@ -23,13 +30,16 @@ public class TestInstitution extends TestCase{
 		institution.setAcronym("two");
 		institution.save();
 	}
+	
+
+	@Override
+    protected void setUp() throws Exception {
+		
+	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		DataBaseStructures db = new DataBaseStructures();
-		db.dropDB();
 	}
-
 
 	
 	public void testShouldCreateNewInstitutionOnDataBase()
