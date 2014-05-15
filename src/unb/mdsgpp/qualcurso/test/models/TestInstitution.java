@@ -5,10 +5,6 @@ import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import libraries.DataBaseStructures;
 import models.Course;
 import models.Institution;
