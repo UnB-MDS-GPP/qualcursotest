@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 import libraries.DataBaseStructures;
+import models.Article;
 import models.Book;
 
 
@@ -91,6 +92,7 @@ public class TestBook extends AndroidTestCase{
 	public void testShouldGetAllBooksOnDataBase() throws ClassNotFoundException, SQLException {
 		int total = Book.count();
 		assertEquals(total, Book.getAll().size());
+		assertEquals("", Book.first().get("test"));
 	}
 	
 	

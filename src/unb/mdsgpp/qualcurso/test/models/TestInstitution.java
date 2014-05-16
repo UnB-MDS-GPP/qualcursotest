@@ -6,6 +6,7 @@ import android.test.AndroidTestCase;
 import java.util.ArrayList;
 
 import libraries.DataBaseStructures;
+import models.Article;
 import models.Course;
 import models.Institution;
 
@@ -65,6 +66,7 @@ public class TestInstitution extends AndroidTestCase{
 			throws ClassNotFoundException, SQLException {
 		assertEquals("one", Institution.getAll().get(0).getAcronym());
 		assertEquals("two", Institution.getAll().get(1).getAcronym());
+		assertEquals("", Institution.first().get("test"));
 	}
 
 	
@@ -80,6 +82,7 @@ public class TestInstitution extends AndroidTestCase{
 		assertEquals("one", Institution.first().getAcronym());
 		assertEquals(Institution.getAll().get(0).getAcronym(), Institution
 				.first().getAcronym());
+		assertEquals("one", Institution.first().toString());
 	}
 
 	

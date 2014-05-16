@@ -77,6 +77,7 @@ public class TestArticle extends AndroidTestCase{
 	public void testShouldGetAllArticleOnDataBase() throws ClassNotFoundException, SQLException {
 		int total = Article.count();
 		assertEquals(total, Article.getAll().size());
+		assertEquals("", Article.first().get("test"));
 	}
 
 	public void testShouldGetTheFirstArticleOnDataBase() throws ClassNotFoundException, SQLException {
