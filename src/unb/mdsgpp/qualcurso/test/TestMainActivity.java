@@ -1,12 +1,24 @@
 package unb.mdsgpp.qualcurso.test;
 
+import models.Evaluation;
+import android.app.Instrumentation;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.test.UiThreadTest;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import unb.mdsgpp.qualcurso.CourseListFragment;
+import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
 
 public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActivity> {
 	private MainActivity mActivity;
+	private Instrumentation mInstrumentation;
 
 	public TestMainActivity() {
 		super(MainActivity.class);
@@ -18,6 +30,17 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 
 		setActivityInitialTouchMode(false);
 		this.mActivity = getActivity();
+		this.mInstrumentation = getInstrumentation();
+		
+	}
+	
+	public void setUpBeforeClass(){
+		Evaluation evaluation = new Evaluation();
+		
+	}
+	
+	public void testPreConditions(){
+		setUpBeforeClass();
 	}
 
 	public void testShouldOnSectionAttachedSetTheActivityTitle() {
@@ -27,7 +50,41 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 	}
 
 	public void testShouldonNavigationDrawerItemSelectedSetInstitutionListFragment() {
-		//this.mActivity.onNavigationDrawerItemSelected(0);
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView lv = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, lv.getChildAt(0));
 		assertEquals(InstitutionListFragment.class, this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container).getClass());
+	}
+	
+	
+	public void testShouldOnClickChangeFragments(){
+		this.mActivity = getActivity();
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, nl.getChildAt(0));
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		assertTrue(fragment instanceof InstitutionListFragment);
+		ListView lv = (ListView)fragment.getView().findViewById(android.R.id.list);
+		assertEquals("UFBA", ((TextView)lv.getChildAt(0)).getText());
+		TouchUtils.clickView(this, lv.getChildAt(0));
+		this.mActivity = getActivity();
+		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		assertEquals(CourseListFragment.class, fragment.getClass());
+	}
+	
+	public void testShouldOnSelectionsShowEvaluation(){
+		this.mActivity = getActivity();
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, nl.getChildAt(0));
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		ListView lv = (ListView)fragment.getView().findViewById(android.R.id.list);
+		TouchUtils.clickView(this, lv.getChildAt(0));
+		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		lv = (ListView)fragment.getView().findViewById(android.R.id.list);
+		TouchUtils.clickView(this, lv.getChildAt(0));
+		this.mActivity = getActivity();
+		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		assertEquals(EvaluationDetailFragment.class, fragment.getClass());
 	}
 }
