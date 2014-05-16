@@ -218,5 +218,9 @@ public class TestEvaluation extends AndroidTestCase{
 		evaluation1.delete();
 		evaluation2.delete();
 	}
-	
+	public void testShouldGetEvaluationsFromRelation(){
+		Evaluation evaluation1 = Evaluation.get(1);
+		assertEquals(Evaluation.getFromRelation(1, 1).get(0).getDissertations(), evaluation1.getDissertations());
+
+	}
 }
