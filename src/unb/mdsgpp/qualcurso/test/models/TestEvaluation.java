@@ -183,6 +183,7 @@ public class TestEvaluation extends AndroidTestCase{
 		assertEquals(total, Evaluation.getAll().size());
 		assertEquals(Evaluation.first().getTheses(), Evaluation.getAll().get(0).getTheses());
 		assertEquals(Evaluation.first().getDissertations(), Evaluation.getAll().get(0).getDissertations());
+		assertEquals("", Evaluation.first().get("test"));
 	}
 	
 	
