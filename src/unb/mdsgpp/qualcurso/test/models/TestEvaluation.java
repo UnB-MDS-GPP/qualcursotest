@@ -5,6 +5,7 @@ import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
+import unb.mdsgpp.qualcurso.QualCurso;
 import junit.framework.TestCase;
 import libraries.DataBaseStructures;
 import models.Article;
@@ -20,6 +21,7 @@ public class TestEvaluation extends AndroidTestCase{
 	@Override
 	public void testAndroidTestCaseSetupProperly() {
 		super.testAndroidTestCaseSetupProperly();
+		QualCurso.getInstance().setDatabaseName("database_test.sqlite3.db");
 		DataBaseStructures db = new DataBaseStructures();
 		db.dropDB();
 		db.initDB();
@@ -183,6 +185,7 @@ public class TestEvaluation extends AndroidTestCase{
 		assertEquals(total, Evaluation.getAll().size());
 		assertEquals(Evaluation.first().getTheses(), Evaluation.getAll().get(0).getTheses());
 		assertEquals(Evaluation.first().getDissertations(), Evaluation.getAll().get(0).getDissertations());
+		assertEquals("", Evaluation.first().get("test"));
 	}
 	
 	
@@ -218,5 +221,9 @@ public class TestEvaluation extends AndroidTestCase{
 		evaluation1.delete();
 		evaluation2.delete();
 	}
-	
+	public void testShouldGetEvaluationsFromRelation(){
+		Evaluation evaluation1 = Evaluation.get(1);
+		assertEquals(Evaluation.getFromRelation(1, 1).get(0).getDissertations(), evaluation1.getDissertations());
+
+	}
 }

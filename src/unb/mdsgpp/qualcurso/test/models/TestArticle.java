@@ -6,6 +6,7 @@ import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
+import unb.mdsgpp.qualcurso.QualCurso;
 import junit.framework.TestCase;
 import libraries.DataBaseStructures;
 import models.Article;
@@ -16,6 +17,7 @@ public class TestArticle extends AndroidTestCase{
 	@Override
 	public void testAndroidTestCaseSetupProperly() {
 		super.testAndroidTestCaseSetupProperly();
+		QualCurso.getInstance().setDatabaseName("database_test.sqlite3.db");
 		DataBaseStructures db = new DataBaseStructures();
 		db.dropDB();
 		db.initDB();
@@ -77,6 +79,7 @@ public class TestArticle extends AndroidTestCase{
 	public void testShouldGetAllArticleOnDataBase() throws ClassNotFoundException, SQLException {
 		int total = Article.count();
 		assertEquals(total, Article.getAll().size());
+		assertEquals("", Article.first().get("test"));
 	}
 
 	public void testShouldGetTheFirstArticleOnDataBase() throws ClassNotFoundException, SQLException {

@@ -5,8 +5,10 @@ import android.test.AndroidTestCase;
 
 import java.util.ArrayList;
 
+import unb.mdsgpp.qualcurso.QualCurso;
 import junit.framework.TestCase;
 import libraries.DataBaseStructures;
+import models.Article;
 import models.Course;
 import models.Institution;
 
@@ -15,6 +17,7 @@ public class TestCourse extends AndroidTestCase{
 	@Override
 	public void testAndroidTestCaseSetupProperly() {
 		super.testAndroidTestCaseSetupProperly();
+		QualCurso.getInstance().setDatabaseName("database_test.sqlite3.db");
 		DataBaseStructures db = new DataBaseStructures();
 		db.dropDB();
 		db.initDB();
@@ -74,12 +77,14 @@ public class TestCourse extends AndroidTestCase{
 	public void testShouldGetAllCoursesOnDataBase() throws ClassNotFoundException, SQLException {
 		int total = Course.count();
 		assertEquals(total, Course.getAll().size());
+		assertEquals("", Course.first().get("test"));
 	}
 	
 	
 	public void testShouldGetTheFirstCourseOnDataBase() throws ClassNotFoundException, SQLException {
 		Course first = Course.first();
 		assertEquals(first.getName(), Course.getAll().get(0).getName());
+		assertEquals("one", Course.first().toString());
 	}
 
 	
