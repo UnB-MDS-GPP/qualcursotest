@@ -1,0 +1,22 @@
+[EMMA v2.0.5312 report, generated Fri May 16 23:37:33 BRT 2014]
+-------------------------------------------------------------------------------
+OVERALL COVERAGE SUMMARY:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+100% (19/19)	97%  (210/217)	95%  (4083/4314)	95%  (958,3/1012)	all classes
+
+OVERALL STATS SUMMARY:
+
+total packages:	3
+total classes:	19
+total methods:	217
+total executable files:	16
+total executable lines:	1012
+
+COVERAGE BREAKDOWN BY PACKAGE:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+100% (10/10)	90%  (60/67)	84%  (1204/1431)	82%  (246,5/300)	unb.mdsgpp.qualcurso
+100% (7/7)	100% (138/138)	100% (2759/2763)	100% (664,9/665)	models
+100% (2/2)	100% (12/12)	100% (120/120)	100% (47/47)	libraries
+-------------------------------------------------------------------------------
