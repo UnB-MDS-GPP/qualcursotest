@@ -160,7 +160,7 @@ public class TestInstitution extends AndroidTestCase{
 	}
 	
 	public void testShouldGetInstitutionsByEvaluationFilter() {
-		ArrayList<Institution> institutions;
+		ArrayList<Institution> institutions = new ArrayList<Institution>();
 		Evaluation [] eva = this.buildEvaluation();
 
 		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", "2007", "7", "9");
@@ -276,5 +276,10 @@ public class TestInstitution extends AndroidTestCase{
 
 		institution1.delete();
 		institution2.delete();
+		
+		Evaluation evaluation1 = Evaluation.get(eva[0].getId());
+		Evaluation evaluation2 = Evaluation.get(eva[1].getId());
+		evaluation1.delete();
+		evaluation2.delete();
 	}
 }

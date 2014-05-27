@@ -272,5 +272,10 @@ public class TestCourse extends AndroidTestCase{
 
 		institution1.delete();
 		institution2.delete();
+		
+		Evaluation evaluation1 = Evaluation.get(eva[0].getId());
+		Evaluation evaluation2 = Evaluation.get(eva[1].getId());
+		evaluation1.delete();
+		evaluation2.delete();
 	}
 }
