@@ -9,7 +9,9 @@ import unb.mdsgpp.qualcurso.QualCurso;
 import junit.framework.TestCase;
 import libraries.DataBaseStructures;
 import models.Article;
+import models.Book;
 import models.Course;
+import models.Evaluation;
 import models.Institution;
 
 public class TestCourse extends AndroidTestCase{
@@ -151,5 +153,176 @@ public class TestCourse extends AndroidTestCase{
 		assertEquals(1, courses2.size());
 		course.delete();
 		course1.delete();
+	}
+
+	public void testShouldGetCoursesByEvaluationFilter() {
+		ArrayList<Course> courses;
+		Evaluation [] eva = this.buildEvaluation();
+
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2007", "19", "21");
+		assertEquals(1, courses.size());
+		assertEquals("name course 1", courses.get(0).getName());
+		
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2007", "19", "max");
+		assertEquals(2, courses.size());
+		assertEquals("name course 1", courses.get(0).getName());
+		assertEquals("name course 2", courses.get(1).getName());
+
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2010", "29", "31");
+		assertEquals(1, courses.size());
+		assertEquals("name course 2", courses.get(0).getName());
+		
+		this.destroyEvaluation(eva);
+	}
+
+	public void testShouldGetInstitutionsByEvaluationFilter() {
+		ArrayList<Institution> institutions;
+		Evaluation [] eva = this.buildEvaluation();
+
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[0].getIdCourse()), "triennial_evaluation", "2007", "19", "21");
+		assertEquals(1, institutions.size());
+		assertEquals("name institution 1", institutions.get(0).getAcronym());
+		
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[2].getIdCourse()), "triennial_evaluation", "2007", "19", "max");
+		assertEquals(1, institutions.size());
+		assertEquals("name institution 3", institutions.get(0).getAcronym());
+
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[1].getIdCourse()), "triennial_evaluation", "2010", "29", "31");
+		assertEquals(1, institutions.size());
+		assertEquals("name institution 2", institutions.get(0).getAcronym());
+
+		this.destroyEvaluation(eva);
+	}
+
+	private Evaluation [] buildEvaluation() {
+		Evaluation [] response = new Evaluation[3];
+		
+		/*  First Evaluation */
+		Institution institution = new Institution();
+		institution.setAcronym("name institution 1");
+		institution.save();
+
+		Course course1 = new Course();
+		course1.setName("name course 1");
+		course1.save();
+
+		Article article = new Article();
+		article.setPublishedJournals(1);
+		article.save();
+
+		Book book = new Book();
+		book.setIntegralText(1);
+		book.save();
+
+		Evaluation evaluation = new Evaluation();
+		evaluation.setIdInstitution(institution.getId());
+		evaluation.setIdCourse(course1.getId());
+		evaluation.setYear(Integer.parseInt("2007"));
+		evaluation.setModality("modality");
+		evaluation.setMasterDegreeStartYear(Integer.parseInt("2000"));
+		evaluation.setDoctorateStartYear(Integer.parseInt("2010"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("20"));
+		evaluation.setPermanentTeachers(Integer.parseInt("1"));
+		evaluation.setTheses(Integer.parseInt("2"));
+		evaluation.setDissertations(Integer.parseInt("3"));
+		evaluation.setIdArticles(article.getId());
+		evaluation.setIdBooks(book.getId());
+		evaluation.setArtisticProduction(Integer.parseInt("5"));
+		evaluation.save();
+
+		response[0] = evaluation;
+
+		/* Second Evaluation */
+		institution = new Institution();
+		institution.setAcronym("name institution 2");
+		institution.save();
+
+		Course course2 = new Course();
+		course2.setName("name course 2");
+		course2.save();
+
+		article = new Article();
+		article.setPublishedJournals(Integer.parseInt("2"));
+		article.save();
+
+		book = new Book();
+		book.setIntegralText(Integer.parseInt("2"));
+		book.save();
+
+		evaluation = new Evaluation();
+		evaluation.setIdInstitution(institution.getId());
+		evaluation.setIdCourse(course2.getId());
+		evaluation.setYear(Integer.parseInt("2010"));
+		evaluation.setModality("modality 2");
+		evaluation.setMasterDegreeStartYear(Integer.parseInt("2001"));
+		evaluation.setDoctorateStartYear(Integer.parseInt("2011"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("30"));
+		evaluation.setPermanentTeachers(Integer.parseInt("2"));
+		evaluation.setTheses(Integer.parseInt("3"));
+		evaluation.setDissertations(Integer.parseInt("4"));
+		evaluation.setIdArticles(article.getId());
+		evaluation.setIdBooks(book.getId());
+		evaluation.setArtisticProduction(Integer.parseInt("6"));
+		evaluation.save();
+
+		response[1] = evaluation;
+		
+		/* Third Evaluation */
+		
+		institution = new Institution();
+		institution.setAcronym("name institution 3");
+		institution.save();
+
+		article = new Article();
+		article.setPublishedJournals(Integer.parseInt("2"));
+		article.save();
+
+		book = new Book();
+		book.setIntegralText(Integer.parseInt("2"));
+		book.save();
+
+		evaluation = new Evaluation();
+		evaluation.setIdInstitution(institution.getId());
+		evaluation.setIdCourse(course2.getId());
+		evaluation.setYear(Integer.parseInt("2007"));
+		evaluation.setModality("modality 2");
+		evaluation.setMasterDegreeStartYear(Integer.parseInt("2001"));
+		evaluation.setDoctorateStartYear(Integer.parseInt("2011"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("25"));
+		evaluation.setPermanentTeachers(Integer.parseInt("2"));
+		evaluation.setTheses(Integer.parseInt("3"));
+		evaluation.setDissertations(Integer.parseInt("4"));
+		evaluation.setIdArticles(article.getId());
+		evaluation.setIdBooks(book.getId());
+		evaluation.setArtisticProduction(Integer.parseInt("6"));
+		evaluation.save();
+
+		response[2] = evaluation;
+
+		return response;
+	}
+
+	private void destroyEvaluation(Evaluation [] eva) {
+		Course course1 =  Course.get(eva[0].getIdCourse());
+		Course course2 =  Course.get(eva[1].getIdCourse());
+
+		course1.delete();
+		course2.delete();
+
+		Institution institution1 =  Institution.get(eva[0].getIdInstitution());
+		Institution institution2 =  Institution.get(eva[1].getIdInstitution());
+		Institution institution3 =  Institution.get(eva[2].getIdInstitution());
+		
+		institution1.delete();
+		institution2.delete();
+		institution3.delete();
+		
+		Evaluation evaluation1 = Evaluation.get(eva[0].getId());
+		Evaluation evaluation2 = Evaluation.get(eva[1].getId());
+		Evaluation evaluation3 = Evaluation.get(eva[2].getId());
+		
+		evaluation1.delete();
+		evaluation2.delete();
+		evaluation3.delete();
 	}
 }
