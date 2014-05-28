@@ -159,14 +159,19 @@ public class TestCourse extends AndroidTestCase{
 		ArrayList<Course> courses;
 		Evaluation [] eva = this.buildEvaluation();
 
-		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2007", "7", "9");
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2007", "19", "21");
 		assertEquals(1, courses.size());
 		assertEquals("name course 1", courses.get(0).getName());
+		
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2007", "19", "max");
+		assertEquals(2, courses.size());
+		assertEquals("name course 1", courses.get(0).getName());
+		assertEquals("name course 2", courses.get(1).getName());
 
-		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2010", "2", "5");
+		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", "2010", "29", "31");
 		assertEquals(1, courses.size());
 		assertEquals("name course 2", courses.get(0).getName());
-
+		
 		this.destroyEvaluation(eva);
 	}
 
@@ -174,11 +179,15 @@ public class TestCourse extends AndroidTestCase{
 		ArrayList<Institution> institutions;
 		Evaluation [] eva = this.buildEvaluation();
 
-		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[0].getIdCourse()), "triennial_evaluation", "2007", "7", "9");
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[0].getIdCourse()), "triennial_evaluation", "2007", "19", "21");
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 1", institutions.get(0).getAcronym());
+		
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[2].getIdCourse()), "triennial_evaluation", "2007", "19", "max");
+		assertEquals(1, institutions.size());
+		assertEquals("name institution 3", institutions.get(0).getAcronym());
 
-		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[1].getIdCourse()), "triennial_evaluation", "2010", "2", "5");
+		institutions = Course.getInstitutionsByEvaluationFilter(Integer.toString(eva[1].getIdCourse()), "triennial_evaluation", "2010", "29", "31");
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 2", institutions.get(0).getAcronym());
 
@@ -186,7 +195,8 @@ public class TestCourse extends AndroidTestCase{
 	}
 
 	private Evaluation [] buildEvaluation() {
-		Evaluation [] response = new Evaluation[2];
+		Evaluation [] response = new Evaluation[3];
+		
 		/*  First Evaluation */
 		Institution institution = new Institution();
 		institution.setAcronym("name institution 1");
@@ -211,7 +221,7 @@ public class TestCourse extends AndroidTestCase{
 		evaluation.setModality("modality");
 		evaluation.setMasterDegreeStartYear(Integer.parseInt("2000"));
 		evaluation.setDoctorateStartYear(Integer.parseInt("2010"));
-		evaluation.setTriennialEvaluation(Integer.parseInt("8"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("20"));
 		evaluation.setPermanentTeachers(Integer.parseInt("1"));
 		evaluation.setTheses(Integer.parseInt("2"));
 		evaluation.setDissertations(Integer.parseInt("3"));
@@ -246,7 +256,7 @@ public class TestCourse extends AndroidTestCase{
 		evaluation.setModality("modality 2");
 		evaluation.setMasterDegreeStartYear(Integer.parseInt("2001"));
 		evaluation.setDoctorateStartYear(Integer.parseInt("2011"));
-		evaluation.setTriennialEvaluation(Integer.parseInt("4"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("30"));
 		evaluation.setPermanentTeachers(Integer.parseInt("2"));
 		evaluation.setTheses(Integer.parseInt("3"));
 		evaluation.setDissertations(Integer.parseInt("4"));
@@ -256,6 +266,38 @@ public class TestCourse extends AndroidTestCase{
 		evaluation.save();
 
 		response[1] = evaluation;
+		
+		/* Third Evaluation */
+		
+		institution = new Institution();
+		institution.setAcronym("name institution 3");
+		institution.save();
+
+		article = new Article();
+		article.setPublishedJournals(Integer.parseInt("2"));
+		article.save();
+
+		book = new Book();
+		book.setIntegralText(Integer.parseInt("2"));
+		book.save();
+
+		evaluation = new Evaluation();
+		evaluation.setIdInstitution(institution.getId());
+		evaluation.setIdCourse(course2.getId());
+		evaluation.setYear(Integer.parseInt("2007"));
+		evaluation.setModality("modality 2");
+		evaluation.setMasterDegreeStartYear(Integer.parseInt("2001"));
+		evaluation.setDoctorateStartYear(Integer.parseInt("2011"));
+		evaluation.setTriennialEvaluation(Integer.parseInt("25"));
+		evaluation.setPermanentTeachers(Integer.parseInt("2"));
+		evaluation.setTheses(Integer.parseInt("3"));
+		evaluation.setDissertations(Integer.parseInt("4"));
+		evaluation.setIdArticles(article.getId());
+		evaluation.setIdBooks(book.getId());
+		evaluation.setArtisticProduction(Integer.parseInt("6"));
+		evaluation.save();
+
+		response[2] = evaluation;
 
 		return response;
 	}
@@ -269,13 +311,18 @@ public class TestCourse extends AndroidTestCase{
 
 		Institution institution1 =  Institution.get(eva[0].getIdInstitution());
 		Institution institution2 =  Institution.get(eva[1].getIdInstitution());
-
+		Institution institution3 =  Institution.get(eva[2].getIdInstitution());
+		
 		institution1.delete();
 		institution2.delete();
+		institution3.delete();
 		
 		Evaluation evaluation1 = Evaluation.get(eva[0].getId());
 		Evaluation evaluation2 = Evaluation.get(eva[1].getId());
+		Evaluation evaluation3 = Evaluation.get(eva[2].getId());
+		
 		evaluation1.delete();
 		evaluation2.delete();
+		evaluation3.delete();
 	}
 }
