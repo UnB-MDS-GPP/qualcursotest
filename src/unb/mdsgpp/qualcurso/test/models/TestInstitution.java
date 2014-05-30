@@ -163,15 +163,15 @@ public class TestInstitution extends AndroidTestCase{
 		ArrayList<Institution> institutions = new ArrayList<Institution>();
 		Evaluation [] eva = this.buildEvaluation();
 
-		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", "2007", "19", "21");
+		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2007, 19, 21);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 1", institutions.get(0).getAcronym());
 
-		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", "2010", "24", "26");
+		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2010, 24, 26);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 2", institutions.get(0).getAcronym());
 		
-		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", "2010", "24", "MAX");
+		institutions = Institution.getInstitutionsByEvaluationFilter("triennial_evaluation", 2010, 24, -1);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 2", institutions.get(0).getAcronym());
 		
@@ -182,15 +182,15 @@ public class TestInstitution extends AndroidTestCase{
 		ArrayList<Course> courses;
 		Evaluation [] eva = this.buildEvaluation();
 
-		courses = Institution.getCoursesByEvaluationFilter(Integer.toString(eva[0].getIdInstitution()), "triennial_evaluation", "2007", "19", "21");
+		courses = Institution.getCoursesByEvaluationFilter(eva[0].getIdInstitution(), "triennial_evaluation", 2007, 19, 21);
 		assertEquals(1, courses.size());
 		assertEquals("name course 1", courses.get(0).getName());
 		
-		courses = Institution.getCoursesByEvaluationFilter(Integer.toString(eva[1].getIdInstitution()), "triennial_evaluation", "2010", "24", "26");
+		courses = Institution.getCoursesByEvaluationFilter(eva[1].getIdInstitution(), "triennial_evaluation", 2010, 24, 26);
 		assertEquals(1, courses.size());
 		assertEquals("name course 2", courses.get(0).getName());
 
-		courses = Institution.getCoursesByEvaluationFilter(Integer.toString(eva[2].getIdInstitution()), "triennial_evaluation", "2010", "24", "MAX");
+		courses = Institution.getCoursesByEvaluationFilter(eva[2].getIdInstitution(), "triennial_evaluation", 2010, 24, -1);
 		assertEquals(2, courses.size());
 		assertEquals("name course 2", courses.get(0).getName());
 		assertEquals("name course 3", courses.get(1).getName());
