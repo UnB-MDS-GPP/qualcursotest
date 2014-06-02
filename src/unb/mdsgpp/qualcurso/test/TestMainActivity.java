@@ -8,6 +8,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -119,7 +120,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		assertTrue(search instanceof SearchByIndicatorFragment);
 	}
 
-	public void testShoudSearchByIndicatorFragmentDisableUpperlmitWhenMaxCheckboxIsEnable() {
+	public void testShoudSearchByIndicatorFragmentDisableUpperlimitWhenMaxCheckboxIsEnable() {
 		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
 
@@ -132,5 +133,23 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		TouchUtils.clickView(this, maximumCheckbox);
 
 		assertFalse(secondNumber.isEnabled());
+	}
+
+	public void testShoudSearchByIndicatorFragmentSetZeroToFirstNumberAndCheckMaximumIfTheUserJustPressSearch() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+
+		TouchUtils.clickView(this, nl.getChildAt(1));
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
+
+		CheckBox maximumCheckbox = (CheckBox) search.getView().findViewById(R.id.maximum);
+		EditText firstNumber = (EditText) search.getView().findViewById(R.id.firstNumber);
+
+		TouchUtils.clickView(this, buttonSearch);
+
+		assertEquals("0", firstNumber.getText().toString());
+		assertTrue(maximumCheckbox.isChecked());
 	}
 }
