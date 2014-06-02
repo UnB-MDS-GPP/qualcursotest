@@ -1,6 +1,9 @@
 package unb.mdsgpp.qualcurso.test;
 
+import java.util.ArrayList;
+
 import models.Evaluation;
+import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +11,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
 import android.view.View;
+import android.webkit.WebView.FindListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -165,12 +169,19 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 
 		Spinner listSelectionSpinner = (Spinner) search.getView().findViewById(R.id.course_institution);
 		Spinner yearSpinner = (Spinner) search.getView().findViewById(R.id.year);
-		Spinner filterFieldSpinner = (Spinner) search.getView().findViewById(R.id.indicator);
-
-		filterFieldSpinner.setSelection(4); // theses
+		final Spinner filterFieldSpinner = (Spinner) search.getView().findViewById(R.id.field);
+		
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				filterFieldSpinner.requestFocus();
+				filterFieldSpinner.setSelection(4);
+			}
+		});
+		
 
 		TouchUtils.clickView(this, buttonSearch);
-
+		
 		assertEquals(listSelectionSpinner.getAdapter().getCount()-1 , listSelectionSpinner.getSelectedItemPosition());
 		assertEquals(yearSpinner.getAdapter().getCount()-1, yearSpinner.getSelectedItemPosition());
 	}
