@@ -18,6 +18,7 @@ import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
+import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import unb.mdsgpp.qualcurso.TabsFragment;
 
 public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -105,5 +106,15 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		TouchUtils.clickView(this, v.getChildTabViewAt(1));
 		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.tab_2);
 		assertTrue(fragment instanceof CourseListFragment);
+	}
+
+	public void testShoudOpenSearchByIndicatorFragment() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+
+		TouchUtils.clickView(this, nl.getChildAt(1));
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		assertTrue(search instanceof SearchByIndicatorFragment);
 	}
 }
