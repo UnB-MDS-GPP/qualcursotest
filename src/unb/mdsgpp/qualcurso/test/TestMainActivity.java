@@ -8,6 +8,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -116,5 +117,20 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		assertTrue(search instanceof SearchByIndicatorFragment);
+	}
+
+	public void testShoudSearchByIndicatorFragmentDisableUpperlmitWhenMaxCheckboxIsEnable() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+
+		TouchUtils.clickView(this, nl.getChildAt(1));
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		View maximumCheckbox = search.getView().findViewById(R.id.maximum);
+		EditText secondNumber = (EditText) search.getView().findViewById(R.id.secondNumber);
+
+		TouchUtils.clickView(this, maximumCheckbox);
+
+		assertFalse(secondNumber.isEnabled());
 	}
 }
