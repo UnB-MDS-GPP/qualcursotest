@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
@@ -151,5 +152,26 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 
 		assertEquals("0", firstNumber.getText().toString());
 		assertTrue(maximumCheckbox.isChecked());
+	}
+
+	public void testShoudSearchByIndicatorFragmentSetListToInstitutionAndYearTo2010IfOnlyTheIndicatorIsSet() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+
+		TouchUtils.clickView(this, nl.getChildAt(1));
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
+
+		Spinner listSelectionSpinner = (Spinner) search.getView().findViewById(R.id.course_institution);
+		Spinner yearSpinner = (Spinner) search.getView().findViewById(R.id.year);
+		Spinner filterFieldSpinner = (Spinner) search.getView().findViewById(R.id.indicator);
+
+		filterFieldSpinner.setSelection(4); // theses
+
+		TouchUtils.clickView(this, buttonSearch);
+
+		assertEquals(listSelectionSpinner.getAdapter().getCount()-1 , listSelectionSpinner.getSelectedItemPosition());
+		assertEquals(yearSpinner.getAdapter().getCount()-1, yearSpinner.getSelectedItemPosition());
 	}
 }
