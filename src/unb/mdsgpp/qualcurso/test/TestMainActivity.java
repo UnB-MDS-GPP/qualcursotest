@@ -237,19 +237,23 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		assertTrue(searchList instanceof InstitutionListFragment);
 	}
 	
-	public void testShould() {
+	public void testShouldNotAllowRankWithoutIndicator() {
 		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
 		
 		TouchUtils.clickView(this, nl.getChildAt(2));
 		Fragment rank = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		
-		AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
+		final AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				
+				course.setText("eng");
 			}
 		});
+		View v = course.getTouchables().get(0);
+		TouchUtils.clickView(this, v);
+		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
+		assertNull(evaluationList.getAdapter());
 	}
 }
