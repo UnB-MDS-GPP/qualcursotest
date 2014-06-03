@@ -200,7 +200,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		final EditText firstNumber = (EditText) search.getView().findViewById(R.id.firstNumber);
 		final EditText secondNumber = (EditText) search.getView().findViewById(R.id.secondNumber);
 		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
-		Fragment searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.search_list);
+		
 
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
@@ -223,7 +223,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		});
 
 		TouchUtils.clickView(this, buttonSearch);
-
+		Fragment searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.search_list);
 		ListView resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
 		TouchUtils.clickView(this, resultList.getChildAt(0));
 
@@ -233,5 +233,6 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
 
 		// TODO test if it is an Institution list
+		assertTrue(searchList instanceof InstitutionListFragment);
 	}
 }
