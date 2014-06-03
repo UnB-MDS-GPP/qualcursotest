@@ -3,6 +3,7 @@ package unb.mdsgpp.qualcurso.test;
 import java.util.ArrayList;
 
 import models.Evaluation;
+import models.Institution;
 import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.support.v4.app.Fragment;
@@ -184,5 +185,53 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		
 		assertEquals(listSelectionSpinner.getAdapter().getCount()-1 , listSelectionSpinner.getSelectedItemPosition());
 		assertEquals(yearSpinner.getAdapter().getCount()-1, yearSpinner.getSelectedItemPosition());
+	}
+
+	public void testShoudSearchByIndicatorFragmentListCoursesWithInstitutionsByItsFilters() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+
+		TouchUtils.clickView(this, nl.getChildAt(1));
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		final Spinner listSelectionSpinner = (Spinner) search.getView().findViewById(R.id.course_institution);
+		final Spinner yearSpinner = (Spinner) search.getView().findViewById(R.id.year);
+		final Spinner filterFieldSpinner = (Spinner) search.getView().findViewById(R.id.field);
+		final EditText firstNumber = (EditText) search.getView().findViewById(R.id.firstNumber);
+		final EditText secondNumber = (EditText) search.getView().findViewById(R.id.secondNumber);
+		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
+		Fragment searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.search_list);
+
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				listSelectionSpinner.requestFocus();
+				listSelectionSpinner.setSelection(1); // Course
+
+				yearSpinner.requestFocus();
+				yearSpinner.setSelection(2); // 2010
+
+				filterFieldSpinner.requestFocus();
+				filterFieldSpinner.setSelection(1); // tienial evaluation
+
+				firstNumber.requestFocus();
+				firstNumber.setText("5");
+
+				secondNumber.requestFocus();
+				secondNumber.setText("7");
+			}
+		});
+
+		TouchUtils.clickView(this, buttonSearch);
+
+		ListView resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
+		TouchUtils.clickView(this, resultList.getChildAt(0));
+
+		this.mActivity = getActivity();
+		searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
+
+		// TODO test if it is an Institution list
 	}
 }
