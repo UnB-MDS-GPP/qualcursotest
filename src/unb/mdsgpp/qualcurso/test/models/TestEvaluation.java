@@ -236,6 +236,11 @@ public class TestEvaluation extends AndroidTestCase{
 		fields.add("triennial_evaluation");
 		fields.add("acronym");
 		ArrayList<HashMap<String , String>> list = gDB.selectOrdered(fields, fields.get(0),null, fields.get(1), true);
+		
+		assertEquals("2004", list.get(0).get(fields.get(0)));
+		assertEquals("2", list.get(0).get(fields.get(1)));
+		
+		assertEquals("2003", list.get(1).get(fields.get(0)));
+		assertEquals("1", list.get(1).get(fields.get(1)));
 	}
-	
 }
