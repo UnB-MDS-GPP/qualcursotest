@@ -13,6 +13,7 @@ import android.test.TouchUtils;
 import android.test.UiThreadTest;
 import android.view.View;
 import android.webkit.WebView.FindListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -234,5 +235,21 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 
 		// TODO test if it is an Institution list
 		assertTrue(searchList instanceof InstitutionListFragment);
+	}
+	
+	public void testShould() {
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		
+		TouchUtils.clickView(this, nl.getChildAt(2));
+		Fragment rank = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		
+		AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				
+			}
+		});
 	}
 }

@@ -1,5 +1,6 @@
 package unb.mdsgpp.qualcurso.test;
 
+import unb.mdsgpp.qualcurso.RankingFragment;
 import android.support.v4.app.Fragment;
 import android.test.AndroidTestCase;
 
@@ -13,7 +14,7 @@ public class TestRankingFragment extends AndroidTestCase {
 	public void testShouldGetNewInstanceOfRankingFragment(){
 		Fragment fragment = new RankingFragment();
 		
-		TestRankingFragment sbif = (TestRankingFragment) fragment;
+		RankingFragment sbif = (RankingFragment) fragment;
 		assertNotNull(sbif);
 	}
 }
