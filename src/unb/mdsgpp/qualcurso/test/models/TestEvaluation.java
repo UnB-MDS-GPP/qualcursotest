@@ -3,7 +3,9 @@ package unb.mdsgpp.qualcurso.test.models;
 import android.database.SQLException;
 import android.test.AndroidTestCase;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import unb.mdsgpp.qualcurso.QualCurso;
 import junit.framework.TestCase;
@@ -12,6 +14,7 @@ import models.Article;
 import models.Book;
 import models.Course;
 import models.Evaluation;
+import models.GenericBeanDAO;
 import models.Institution;
 
 
@@ -226,4 +229,13 @@ public class TestEvaluation extends AndroidTestCase{
 		assertEquals(Evaluation.getFromRelation(1, 1,2014).getDissertations(), evaluation1.getDissertations());
 
 	}
+	
+	public void testShouldRankEvaluationsByIndicator(){
+		GenericBeanDAO gDB = new GenericBeanDAO();
+		ArrayList<String> fields = new ArrayList<String>();
+		fields.add("triennial_evaluation");
+		fields.add("acronym");
+		ArrayList<HashMap<String , String>> list = gDB.selectOrdered(fields, fields.get(0),null, fields.get(1), true);
+	}
+	
 }
