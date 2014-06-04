@@ -13,7 +13,7 @@ public class TestEvaluationDetailFragment extends AndroidTestCase{
 	}
 	
 	public void testShouldGetNewInstanceOfEvaluationDetailFragment(){
-		Fragment fragment = EvaluationDetailFragment.newInstance(1,2);
+		Fragment fragment = EvaluationDetailFragment.newInstance(1,2,2007);
 		EvaluationDetailFragment edf = (EvaluationDetailFragment) fragment;
 		assertEquals(1, edf.getArguments().getInt("idInstitution"));
 		assertEquals(2, edf.getArguments().getInt("idCourse"));

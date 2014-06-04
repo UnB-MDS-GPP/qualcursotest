@@ -13,7 +13,7 @@ public class TestCourseListFragment extends AndroidTestCase{
 	}
 	
 	public void testShouldGetNewInstanceOfCourseListFragment(){
-		Fragment fragment = CourseListFragment.newInstance(1);
+		Fragment fragment = CourseListFragment.newInstance(1,2007);
 		CourseListFragment clf = (CourseListFragment) fragment;
 		assertEquals(1, clf.getArguments().getInt("idInstitution"));
 	}

@@ -223,7 +223,7 @@ public class TestEvaluation extends AndroidTestCase{
 	}
 	public void testShouldGetEvaluationsFromRelation(){
 		Evaluation evaluation1 = Evaluation.get(1);
-		assertEquals(Evaluation.getFromRelation(1, 1).get(0).getDissertations(), evaluation1.getDissertations());
+		assertEquals(Evaluation.getFromRelation(1, 1,2014).getDissertations(), evaluation1.getDissertations());
 
 	}
 }
