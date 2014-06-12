@@ -7,6 +7,7 @@ import models.Institution;
 import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
@@ -54,6 +55,18 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 	public void testPreConditions(){
 		setUpBeforeClass();
 	}
+	
+	public void openDrawerOptionAt(int position){
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		DrawerLayout mDrawerLayout = (DrawerLayout) mActivity.findViewById(R.id.drawer_layout);
+		
+		if(!mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+			View v = nd.getView().focusSearch(View.FOCUS_FORWARD);
+			TouchUtils.clickView(this, v);
+		}
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, nl.getChildAt(position));
+	}
 
 	public void testShouldOnSectionAttachedSetTheActivityTitle() {
 		this.mActivity.onSectionAttached(1);
@@ -61,18 +74,14 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 	}
 
 	public void testShouldonNavigationDrawerItemSelectedSetInstitutionListFragment() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView lv = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-		TouchUtils.clickView(this, lv.getChildAt(0));
+		openDrawerOptionAt(0);
 		assertEquals(TabsFragment.class, this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container).getClass());
 	}
 	
 	
 	public void testShouldOnClickChangeFragments(){
 		this.mActivity = getActivity();
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-		TouchUtils.clickView(this, nl.getChildAt(0));
+		openDrawerOptionAt(0);
 		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		assertTrue(fragment instanceof TabsFragment);
 		ListView lv = (ListView)fragment.getView().findViewById(android.R.id.list);
@@ -85,9 +94,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 	
 	public void testShouldOnSelectionsShowEvaluation(){
 		this.mActivity = getActivity();
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-		TouchUtils.clickView(this, nl.getChildAt(0));
+		openDrawerOptionAt(0);
 		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		ListView lv = (ListView)fragment.getView().findViewById(android.R.id.list);
 		TouchUtils.clickView(this, lv.getChildAt(0));
@@ -100,9 +107,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 	}
 	
 	public void testShouldOnTabSelectionChangeFragment(){
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-		TouchUtils.clickView(this, nl.getChildAt(0));
+		openDrawerOptionAt(0);
 		Fragment tabs = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		TabWidget v = (TabWidget) tabs.getView().findViewById(android.R.id.tabs);
 		v.getChildTabViewAt(0);

@@ -6,6 +6,8 @@ import unb.mdsgpp.qualcurso.R;
 import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import android.app.Instrumentation;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.view.View;
@@ -30,22 +32,28 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 		this.mActivity = getActivity();
 		this.mInstrumentation = getInstrumentation();
 	}
+	
+	public void openDrawerOptionAt(int position){
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		DrawerLayout mDrawerLayout = (DrawerLayout) mActivity.findViewById(R.id.drawer_layout);
+		
+		if(!mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+			View v = nd.getView().focusSearch(View.FOCUS_FORWARD);
+			TouchUtils.clickView(this, v);
+		}
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, nl.getChildAt(position));
+	}
 
 	public void testShoudOpenSearchByIndicatorFragment() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-
-		TouchUtils.clickView(this, nl.getChildAt(1));
+		openDrawerOptionAt(1);
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		assertTrue(search instanceof SearchByIndicatorFragment);
 	}
 
 	public void testShoudSearchByIndicatorFragmentDisableUpperlimitWhenMaxCheckboxIsEnable() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-
-		TouchUtils.clickView(this, nl.getChildAt(1));
+		openDrawerOptionAt(1);
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		View maximumCheckbox = search.getView().findViewById(R.id.maximum);
@@ -57,10 +65,7 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 	}
 
 	public void testShoudSearchByIndicatorFragmentSetZeroToFirstNumberAndCheckMaximumIfTheUserJustPressSearch() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-
-		TouchUtils.clickView(this, nl.getChildAt(1));
+		openDrawerOptionAt(1);
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
@@ -75,10 +80,7 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 	}
 
 	public void testShoudSearchByIndicatorFragmentSetListToInstitutionAndYearTo2010IfOnlyTheIndicatorIsSet() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-
-		TouchUtils.clickView(this, nl.getChildAt(1));
+		openDrawerOptionAt(1);
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
@@ -103,10 +105,7 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 	}
 
 	public void testShoudSearchByIndicatorFragmentListCoursesWithInstitutionsByItsFilters() {
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
-
-		TouchUtils.clickView(this, nl.getChildAt(1));
+		openDrawerOptionAt(1);
 		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 
 		final Spinner listSelectionSpinner = (Spinner) search.getView().findViewById(R.id.course_institution);
