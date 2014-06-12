@@ -57,17 +57,19 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				course.setText("eng");
+				course.setText("engenharia");
 				course.requestFocus();
 
 			}
 		});
 		mInstrumentation.waitForIdleSync();
-		View v = course;
-		TouchUtils.clickView(this, v);
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		mInstrumentation.waitForIdleSync();
+
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNull(evaluationList.getAdapter());
 	}
@@ -83,17 +85,18 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			public void run() {
 				indicatorSpinner.setSelection(1);
 				yearSpinner.setSelection(1);
-				course.setText("eng");
-				course.requestFocus();
+				course.setText("engenharia");
 
 			}
 		});
+		
 		mInstrumentation.waitForIdleSync();
-		View v = course;
-		TouchUtils.clickView(this, v);
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		mInstrumentation.waitForIdleSync();
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNotNull(evaluationList.getAdapter());
 		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
@@ -111,13 +114,13 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			public void run() {
 				indicatorSpinner.setSelection(1);
 				yearSpinner.setSelection(1);
-				course.setText("eng");
+				course.setText("engenharia");
 				course.requestFocus();
 			}
 		});
 		mInstrumentation.waitForIdleSync();
-		View v = course;
-		TouchUtils.clickView(this, v);
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
@@ -126,7 +129,7 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNotNull(evaluationList.getAdapter());
 		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
-		v = evaluationList.getChildAt(0);
+		View v = evaluationList.getChildAt(0);
 		TouchUtils.clickView(this, v);
 		Fragment evaluation = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		assertTrue(evaluation instanceof EvaluationDetailFragment);
