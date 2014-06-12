@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
-public class TextRank  extends ActivityInstrumentationTestCase2<MainActivity>  {
+public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>  {
 	private MainActivity mActivity;
 	private Instrumentation mInstrumentation;
 
-	public TextRank() {
+	public TestRanking() {
 		super(MainActivity.class);
 	}
 
