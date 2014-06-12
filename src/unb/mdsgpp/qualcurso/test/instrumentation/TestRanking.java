@@ -1,5 +1,11 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
+import java.util.HashMap;
+
+import models.Course;
+import models.Evaluation;
+import helpers.Indicator;
+import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
 import android.app.Instrumentation;
@@ -12,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>  {
 	private MainActivity mActivity;
@@ -51,14 +58,81 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			@Override
 			public void run() {
 				course.setText("eng");
+				course.requestFocus();
+
 			}
 		});
-		View v = course.getTouchables().get(0);
+		mInstrumentation.waitForIdleSync();
+		View v = course;
 		TouchUtils.clickView(this, v);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNull(evaluationList.getAdapter());
+	}
+	public void testShouldShowRank(){
+		openDrawerOptionAt(2);
+		Fragment rank = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		final Spinner indicatorSpinner = (Spinner) rank.getView().findViewById(R.id.field);
+		final Spinner yearSpinner = (Spinner) rank.getView().findViewById(R.id.year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
+		
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				indicatorSpinner.setSelection(1);
+				yearSpinner.setSelection(1);
+				course.setText("eng");
+				course.requestFocus();
+
+			}
+		});
+		mInstrumentation.waitForIdleSync();
+		View v = course;
+		TouchUtils.clickView(this, v);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
+		assertNotNull(evaluationList.getAdapter());
+		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
+		
+	}
+	public void testShouldSeeEvaluationListFragmentOnItemSelected(){
+		openDrawerOptionAt(2);
+		Fragment rank = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		final Spinner indicatorSpinner = (Spinner) rank.getView().findViewById(R.id.field);
+		final Spinner yearSpinner = (Spinner) rank.getView().findViewById(R.id.year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
+		
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				indicatorSpinner.setSelection(1);
+				yearSpinner.setSelection(1);
+				course.setText("eng");
+				course.requestFocus();
+			}
+		});
+		mInstrumentation.waitForIdleSync();
+		View v = course;
+		TouchUtils.clickView(this, v);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		
+		mInstrumentation.waitForIdleSync();
+		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
+		assertNotNull(evaluationList.getAdapter());
+		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
+		v = evaluationList.getChildAt(0);
+		TouchUtils.clickView(this, v);
+		Fragment evaluation = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		assertTrue(evaluation instanceof EvaluationDetailFragment);
+		
+		
+
+		
 	}
 }
