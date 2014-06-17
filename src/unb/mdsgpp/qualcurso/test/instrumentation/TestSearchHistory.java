@@ -79,5 +79,14 @@ public class TestSearchHistory extends ActivityInstrumentationTestCase2<MainActi
 			Search s = (Search)historyList.getAdapter().getItem(0);
 			assertEquals(s.getId(), Search.last().getId());
 		}
-
+		
+		public void testShouldTheTenthSearchMade(){
+			openDrawerOptionAt(3);
+			Fragment history = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+			ListView historyList = (ListView)history.getView().findViewById(R.id.listHistory);
+			if(historyList.getAdapter().getCount() == 10){
+				Search s = (Search)historyList.getAdapter().getItem(9);
+				assertEquals(s.getId(), Search.first());
+			}
+		}
 }
