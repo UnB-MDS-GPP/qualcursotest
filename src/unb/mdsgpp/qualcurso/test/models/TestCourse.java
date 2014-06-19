@@ -120,8 +120,16 @@ public class TestCourse extends AndroidTestCase{
 		institution.delete();
 		institution1.delete();
 	}
-	
-	
+
+	public void testShouldGetCourseInstitutionsOnDataBaseByYear() 	throws ClassNotFoundException, SQLException {
+		Evaluation [] eva = this.buildEvaluation();
+
+		assertEquals("name institution 3", Course.last().getInstitutions(2007).get(0).getAcronym());
+		assertEquals("name institution 2", Course.last().getInstitutions(2010).get(0).getAcronym());
+
+		destroyEvaluation(eva);
+	}
+
 	public void testShouldCreateCourseInstitutionOnDataBase()
 			throws ClassNotFoundException, SQLException {
 		Course course = new Course();
