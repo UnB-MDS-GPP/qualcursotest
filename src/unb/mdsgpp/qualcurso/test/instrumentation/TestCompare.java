@@ -1,6 +1,10 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
+import java.util.HashMap;
+
 import unb.mdsgpp.qualcurso.CompareChooseFragment;
+import unb.mdsgpp.qualcurso.CompareShowFragment;
+import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
 import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
@@ -14,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity> {
 	private MainActivity mActivity;
@@ -74,5 +79,38 @@ public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity>
 
 		ListView institutionList = (ListView) compare.getView().findViewById(R.id.institutionList);
 		assertNull(institutionList.getAdapter());
+	}
+	
+	public void testShouldShowCompareFragmentWithTwoInstitutions(){
+		openDrawerOptionAt(4);
+		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		final Spinner yearSpinner = (Spinner) compare.getView().findViewById(R.id.compare_year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) compare.getView().findViewById(R.id.autoCompleteTextView);
+		
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				yearSpinner.setSelection(1);
+				course.setText("artes");
+				course.requestFocus();
+			}
+		});
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		
+		mInstrumentation.waitForIdleSync();
+		ListView institutionList = (ListView) compare.getView().findViewById(R.id.institutionList);
+		assertNotNull(institutionList.getAdapter());
+		assertEquals("UFBA",((HashMap<String, String>)institutionList.getAdapter().getItem(0)).get("acronym"));
+		View v1 = institutionList.getChildAt(0);
+		View v2 = institutionList.getChildAt(1);
+		TouchUtils.clickView(this, v1);
+		TouchUtils.clickView(this, v2);
+		Fragment compare2 = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		assertTrue(compare instanceof CompareShowFragment);
 	}
 }
