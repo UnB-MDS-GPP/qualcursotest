@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -50,7 +51,7 @@ public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity>
 		assertTrue(compare instanceof CompareChooseFragment);
 	}
 	
-	public void testShouldNotAllowCompareWithoutYear() {
+	public void testShouldShowInstitutionListWithoutYear() {
 		openDrawerOptionAt(4);
 		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		
@@ -58,10 +59,20 @@ public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity>
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				course.setText("engenharia");
+				course.setText("artes");
 				course.requestFocus();
-
 			}
 		});
+		
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		mInstrumentation.waitForIdleSync();
+
+		ListView institutionList = (ListView) compare.getView().findViewById(R.id.institutionList);
+		assertNull(institutionList.getAdapter());
 	}
 }
