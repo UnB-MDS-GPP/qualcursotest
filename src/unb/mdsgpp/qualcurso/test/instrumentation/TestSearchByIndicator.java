@@ -1,5 +1,6 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
+import unb.mdsgpp.qualcurso.CourseListFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
@@ -126,7 +127,7 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 				yearSpinner.setSelection(2); // 2010
 
 				filterFieldSpinner.requestFocus();
-				filterFieldSpinner.setSelection(1); // tienial evaluation
+				filterFieldSpinner.setSelection(1); // triennial evaluation
 
 				firstNumber.requestFocus();
 				firstNumber.setText("5");
@@ -147,5 +148,49 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 		resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
 
 		assertTrue(searchList instanceof InstitutionListFragment);
+	}
+
+	public void testShoudSearchByIndicatorFragmentListCoursesWithCoursesByItsFilters() {
+		openDrawerOptionAt(1);
+		Fragment search = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		final Spinner listSelectionSpinner = (Spinner) search.getView().findViewById(R.id.course_institution);
+		final Spinner yearSpinner = (Spinner) search.getView().findViewById(R.id.year);
+		final Spinner filterFieldSpinner = (Spinner) search.getView().findViewById(R.id.field);
+		final EditText firstNumber = (EditText) search.getView().findViewById(R.id.firstNumber);
+		final EditText secondNumber = (EditText) search.getView().findViewById(R.id.secondNumber);
+		View buttonSearch = search.getView().findViewById(R.id.buttonSearch);
+
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				listSelectionSpinner.requestFocus();
+				listSelectionSpinner.setSelection(2); // Institution
+
+				yearSpinner.requestFocus();
+				yearSpinner.setSelection(2); // 2010
+
+				filterFieldSpinner.requestFocus();
+				filterFieldSpinner.setSelection(1); // triennial evaluation
+
+				firstNumber.requestFocus();
+				firstNumber.setText("3");
+
+				secondNumber.requestFocus();
+				secondNumber.setText("4");
+			}
+		});
+
+		TouchUtils.clickView(this, buttonSearch);
+		Fragment searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.search_list);
+		ListView resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
+		TouchUtils.clickView(this, resultList.getChildAt(0));
+
+		this.mActivity = getActivity();
+		searchList = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+
+		resultList = (ListView) searchList.getView().findViewById(android.R.id.list);
+
+		assertTrue(searchList instanceof CourseListFragment);
 	}
 }
