@@ -113,4 +113,30 @@ public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity>
 		Fragment compare2 = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		assertTrue(compare instanceof CompareShowFragment);
 	}
+	
+	public void testShouldSet2010toYearIfJustAutoCompleteWasWrite() {
+		openDrawerOptionAt(4);
+		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		Spinner yearSpinner = (Spinner) compare.getView().findViewById(R.id.compare_year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) compare.getView().findViewById(R.id.autoCompleteTextView);
+		
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				course.requestFocus();
+				course.setText("artes");
+				
+			}
+		});
+		
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+		mInstrumentation.waitForIdleSync();
+		
+		assertEquals("2010", yearSpinner.getAdapter().getItem(2));
+	}
 }
