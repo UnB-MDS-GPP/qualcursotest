@@ -16,6 +16,7 @@ import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
 import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
+import unb.mdsgpp.qualcurso.SearchListFragment;
 import android.app.Instrumentation;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -115,15 +116,9 @@ public class TestSearchHistory extends
 		ListView historyList = (ListView) history.getView().findViewById(
 				R.id.listHistory);
 		TouchUtils.clickView(this, historyList);
-		/*Fragment course_institution = this.mActivity
+		Fragment course_institution = this.mActivity
 				.getSupportFragmentManager().findFragmentById(R.id.container);
-		final Spinner listSelectionSpinner = (Spinner) course_institution
-				.getView().findViewById(R.id.course_institution);
-		//if ( listSelectionSpinner.getItemAtPosition() == 1) {
-			assertTrue(course_institution instanceof InstitutionListFragment);
-	//	} else if ((boolean) listSelectionSpinner.getItemAtPosition(1)) {
-			assertTrue(course_institution instanceof CourseListFragment);
-		//}*/
+		assertTrue(course_institution instanceof SearchListFragment);
 
 	}
 }
