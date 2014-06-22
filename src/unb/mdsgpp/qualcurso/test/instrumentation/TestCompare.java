@@ -2,6 +2,8 @@ package unb.mdsgpp.qualcurso.test.instrumentation;
 
 import java.util.HashMap;
 
+import models.Institution;
+
 import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CompareShowFragment;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
@@ -20,14 +22,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity> {
+public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> {
 	private MainActivity mActivity;
 	private Instrumentation mInstrumentation;
-	
-	public TestCompare(){
+
+	public TestCompare() {
 		super(MainActivity.class);
 	}
-	
+
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -36,107 +38,111 @@ public class TestCompare  extends ActivityInstrumentationTestCase2<MainActivity>
 		this.mActivity = getActivity();
 		this.mInstrumentation = getInstrumentation();
 	}
-	
-	public void openDrawerOptionAt(int position){
-		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-		DrawerLayout mDrawerLayout = (DrawerLayout) mActivity.findViewById(R.id.drawer_layout);
-		
-		if(!mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+
+	public void openDrawerOptionAt(int position) {
+		Fragment nd = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.navigation_drawer);
+		DrawerLayout mDrawerLayout = (DrawerLayout) mActivity
+				.findViewById(R.id.drawer_layout);
+
+		if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
 			View v = nd.getView().focusSearch(View.FOCUS_FORWARD);
 			TouchUtils.clickView(this, v);
 		}
-		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		ListView nl = (ListView) nd.getView().findViewById(
+				R.id.navigation_list_view);
 		TouchUtils.clickView(this, nl.getChildAt(position));
 	}
-	
+
 	public void testShoudOpenCompareChooseFragment() {
 		openDrawerOptionAt(4);
-		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		Fragment compare = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.container);
 
 		assertTrue(compare instanceof CompareChooseFragment);
 	}
-	
+
 	public void testShouldShowInstitutionListWithoutYear() {
 		openDrawerOptionAt(4);
-		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
-		
-		final AutoCompleteTextView course = (AutoCompleteTextView) compare.getView().findViewById(R.id.autoCompleteTextView);
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				course.setText("artes");
-				course.requestFocus();
-			}
-		});
-		
+		Fragment compare = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.container);
+
+		final AutoCompleteTextView course = (AutoCompleteTextView) compare
+				.getView().findViewById(R.id.autoCompleteTextView);
+
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendStringSync("artes");
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
 
-		ListView institutionList = (ListView) compare.getView().findViewById(R.id.institutionList);
-		assertNull(institutionList.getAdapter());
+		ListView institutionList = (ListView) compare.getView().findViewById(
+				R.id.institutionList);
+		assertNotNull(institutionList.getAdapter());
 	}
-	
-	public void testShouldShowCompareFragmentWithTwoInstitutions(){
+
+	public void testShouldShowCompareFragmentWithTwoInstitutions() {
 		openDrawerOptionAt(4);
-		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
-		final Spinner yearSpinner = (Spinner) compare.getView().findViewById(R.id.compare_year);
-		final AutoCompleteTextView course = (AutoCompleteTextView) compare.getView().findViewById(R.id.autoCompleteTextView);
-		
+		Fragment compare = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.container);
+		final Spinner yearSpinner = (Spinner) compare.getView().findViewById(
+				R.id.compare_year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) compare
+				.getView().findViewById(R.id.autoCompleteTextView);
+
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				yearSpinner.setSelection(1);
-				course.setText("artes");
-				course.requestFocus();
 			}
 		});
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
-		
+		mInstrumentation.sendStringSync("artes");
 		mInstrumentation.waitForIdleSync();
-		ListView institutionList = (ListView) compare.getView().findViewById(R.id.institutionList);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+
+		mInstrumentation.waitForIdleSync();
+		ListView institutionList = (ListView) compare.getView().findViewById(
+				R.id.institutionList);
 		assertNotNull(institutionList.getAdapter());
-		assertEquals("UFBA",((HashMap<String, String>)institutionList.getAdapter().getItem(0)).get("acronym"));
+		assertEquals("UFBA", ((Institution) institutionList.getAdapter()
+				.getItem(0)).getAcronym());
 		View v1 = institutionList.getChildAt(0);
 		View v2 = institutionList.getChildAt(1);
 		TouchUtils.clickView(this, v1);
 		TouchUtils.clickView(this, v2);
-		Fragment compare2 = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
-		assertTrue(compare instanceof CompareShowFragment);
+		Fragment compare2 = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.container);
+		assertTrue(compare2 instanceof CompareShowFragment);
 	}
-	
-	public void testShouldSet2010toYearIfJustAutoCompleteWasWrite() {
+
+	public void testShouldSetLastYearIfJustAutoCompleteWasWrite() {
 		openDrawerOptionAt(4);
-		Fragment compare = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
-		Spinner yearSpinner = (Spinner) compare.getView().findViewById(R.id.compare_year);
-		final AutoCompleteTextView course = (AutoCompleteTextView) compare.getView().findViewById(R.id.autoCompleteTextView);
-		
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				course.requestFocus();
-				course.setText("artes");
-				
-			}
-		});
-		
+		Fragment compare = this.mActivity.getSupportFragmentManager()
+				.findFragmentById(R.id.container);
+		Spinner yearSpinner = (Spinner) compare.getView().findViewById(
+				R.id.compare_year);
+		final AutoCompleteTextView course = (AutoCompleteTextView) compare
+				.getView().findViewById(R.id.autoCompleteTextView);
+
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendStringSync("artes");
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
-		
-		assertEquals("2010", yearSpinner.getAdapter().getItem(2));
+
+		assertEquals(
+				yearSpinner.getAdapter()
+						.getItem(yearSpinner.getAdapter().getCount() - 1)
+						.toString(), yearSpinner.getSelectedItem().toString());
 	}
 }

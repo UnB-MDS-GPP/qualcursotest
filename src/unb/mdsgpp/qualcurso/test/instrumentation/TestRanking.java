@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -54,19 +55,12 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		Fragment rank = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		
 		final AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				course.setText("engenharia");
-				course.requestFocus();
-
-			}
-		});
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendStringSync("engenharia");
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
 
@@ -85,16 +79,15 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			public void run() {
 				indicatorSpinner.setSelection(1);
 				yearSpinner.setSelection(1);
-				course.setText("engenharia");
-
 			}
 		});
 		
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendStringSync("engenharia");
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
@@ -114,15 +107,14 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			public void run() {
 				indicatorSpinner.setSelection(1);
 				yearSpinner.setSelection(1);
-				course.setText("engenharia");
-				course.requestFocus();
 			}
 		});
 		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
+		mInstrumentation.sendStringSync("engenharia");
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		
 		mInstrumentation.waitForIdleSync();
