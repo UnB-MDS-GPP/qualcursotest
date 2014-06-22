@@ -1,6 +1,9 @@
 package unb.mdsgpp.qualcurso.test.models;
 
 import android.database.SQLException;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.test.AndroidTestCase;
 import helpers.Indicator;
 
@@ -17,8 +20,6 @@ import models.Search;
 
 
 public class TestInstitution extends AndroidTestCase{
-
-	
 	@Override
 	public void testAndroidTestCaseSetupProperly() {
 		super.testAndroidTestCaseSetupProperly();
@@ -33,7 +34,6 @@ public class TestInstitution extends AndroidTestCase{
 		institution.setAcronym("two");
 		institution.save();
 	}
-	
 
 	@Override
     protected void setUp() throws Exception {
@@ -217,6 +217,25 @@ public class TestInstitution extends AndroidTestCase{
 		
 		this.destroyEvaluation(eva);
 	}
+
+	public void testShouldWriteInstitutionToParcel() {
+		Institution instA = Institution.last();
+
+		Bundle b = new Bundle();
+		b.putParcelable("institution", instA);
+
+		Parcel parcel = Parcel.obtain();
+		b.writeToParcel(parcel, 0);
+
+		parcel.setDataPosition(0);
+	    Bundle b2 = parcel.readBundle();
+	    b2.setClassLoader(Institution.class.getClassLoader());
+	    Institution instB = b2.getParcelable("institution");
+
+	    assertEquals(instA.getAcronym(), instB.getAcronym());
+	}
+	
+	/* Inside test helpers */
 
 	private Evaluation [] buildEvaluation() {
 		Evaluation [] response = new Evaluation[3];

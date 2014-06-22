@@ -1,6 +1,8 @@
 package unb.mdsgpp.qualcurso.test.models;
 
 import android.database.SQLException;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.test.AndroidTestCase;
 import helpers.Indicator;
 
@@ -214,6 +216,25 @@ public class TestCourse extends AndroidTestCase{
 		this.destroyEvaluation(eva);
 	}
 
+	public void testShouldWriteCourseToParcel() {
+		Course courseA = Course.last();
+
+		Bundle b = new Bundle();
+		b.putParcelable("course", courseA);
+
+		Parcel parcel = Parcel.obtain();
+		b.writeToParcel(parcel, 0);
+
+		parcel.setDataPosition(0);
+	    Bundle b2 = parcel.readBundle();
+	    b2.setClassLoader(Institution.class.getClassLoader());
+	    Course courseB = b2.getParcelable("course");
+
+	    assertEquals(courseA.getName(), courseB.getName());
+	}
+
+	/* Inside test helpers */
+	
 	private Evaluation [] buildEvaluation() {
 		Evaluation [] response = new Evaluation[3];
 		
