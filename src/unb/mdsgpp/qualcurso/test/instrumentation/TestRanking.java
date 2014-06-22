@@ -60,6 +60,8 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
 		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -87,6 +89,8 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
 		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -113,6 +117,8 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);

@@ -75,6 +75,8 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
 		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
+		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -103,6 +105,8 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
@@ -135,6 +139,8 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, course);
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
