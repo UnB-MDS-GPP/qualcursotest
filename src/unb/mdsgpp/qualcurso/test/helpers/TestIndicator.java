@@ -26,4 +26,11 @@ public class TestIndicator extends AndroidTestCase {
 
 		assertEquals(new Evaluation().fieldsList().get(7), indicator.getValue());
 	}
+	
+	public void testShouldModifyIndicator(){
+		Indicator indicator = Indicator.getIndicatorByValue(new Evaluation().fieldsList().get(7));
+		indicator.setName("test");
+		indicator.setValue("test");
+		assertEquals("test",indicator.getName());
+	}
 }

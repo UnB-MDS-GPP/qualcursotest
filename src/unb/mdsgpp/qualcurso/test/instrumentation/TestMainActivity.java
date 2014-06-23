@@ -142,4 +142,33 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		mInstrumentation.waitForIdleSync();
 		assertTrue(fragment instanceof TabsFragment);
 	}
+	
+	public void testShouldTestCourseListFragmentOnSavedInstanceState() throws InterruptedException{
+		openDrawerOptionAt(0);
+		Fragment tabs = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		TabWidget v = (TabWidget) tabs.getView().findViewById(android.R.id.tabs);
+		v.getChildTabViewAt(0);
+		TouchUtils.clickView(this, v.getChildTabViewAt(0));
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.tab_1);
+		assertTrue(fragment instanceof InstitutionListFragment);
+		TouchUtils.clickView(this, v.getChildTabViewAt(1));
+		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.tab_2);
+		Fragment course = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		if(mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+		} else {
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+		}
+		while(mActivity.getWindowManager().getDefaultDisplay().getRotation() != Surface.ROTATION_0){
+			Thread.sleep(500);
+		}
+		mInstrumentation.waitForIdleSync();
+		assertTrue(fragment instanceof CourseListFragment);
+	}
 }

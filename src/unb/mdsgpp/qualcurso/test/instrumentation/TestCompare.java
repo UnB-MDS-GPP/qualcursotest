@@ -134,6 +134,11 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		View v1 = institutionList.getChildAt(0);
 		View v2 = institutionList.getChildAt(1);
 		TouchUtils.clickView(this, v1);
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, v1);
+		mInstrumentation.waitForIdleSync();
+		TouchUtils.clickView(this, v1);
+		mInstrumentation.waitForIdleSync();
 		TouchUtils.clickView(this, v2);
 		Fragment compare2 = this.mActivity.getSupportFragmentManager()
 				.findFragmentById(R.id.container);
