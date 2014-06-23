@@ -6,12 +6,14 @@ import models.Evaluation;
 import models.Institution;
 import android.annotation.SuppressLint;
 import android.app.Instrumentation;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.UiThreadTest;
+import android.view.Surface;
 import android.view.View;
 import android.webkit.WebView.FindListener;
 import android.widget.AutoCompleteTextView;
@@ -23,6 +25,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
+import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CourseListFragment;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
@@ -117,5 +120,26 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		TouchUtils.clickView(this, v.getChildTabViewAt(1));
 		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.tab_2);
 		assertTrue(fragment instanceof CourseListFragment);
+	}
+	
+	public void testShouldTestOnSavedInstanceState() throws InterruptedException{
+		openDrawerOptionAt(0);
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		if(mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+		} else {
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+		}
+		while(mActivity.getWindowManager().getDefaultDisplay().getRotation() != Surface.ROTATION_0){
+			Thread.sleep(500);
+		}
+		mInstrumentation.waitForIdleSync();
+		assertTrue(fragment instanceof TabsFragment);
 	}
 }

@@ -3,20 +3,22 @@ package unb.mdsgpp.qualcurso.test.instrumentation;
 import java.util.HashMap;
 
 import models.Institution;
-
 import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CompareShowFragment;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
+import unb.mdsgpp.qualcurso.RankingFragment;
 import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import android.app.Instrumentation;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.view.KeyEvent;
+import android.view.Surface;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -71,12 +73,18 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 				.getView().findViewById(R.id.autoCompleteTextView);
 
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -102,12 +110,18 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 			}
 		});
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 
@@ -126,7 +140,7 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertTrue(compare2 instanceof CompareShowFragment);
 	}
 
-	public void testShouldSetLastYearIfJustAutoCompleteWasWrite() {
+	public void testShouldSetLastYearIfJustAutoCompleteWasWrite() throws InterruptedException {
 		openDrawerOptionAt(4);
 		Fragment compare = this.mActivity.getSupportFragmentManager()
 				.findFragmentById(R.id.container);
@@ -136,12 +150,19 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 				.getView().findViewById(R.id.autoCompleteTextView);
 
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("artes");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		Thread.sleep(100);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -150,5 +171,26 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 				yearSpinner.getAdapter()
 						.getItem(yearSpinner.getAdapter().getCount() - 1)
 						.toString(), yearSpinner.getSelectedItem().toString());
+	}
+	
+	public void testShouldTestOnSavedInstanceState() throws InterruptedException{
+		openDrawerOptionAt(4);
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		if(mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+		} else {
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+		}
+		while(mActivity.getWindowManager().getDefaultDisplay().getRotation() != Surface.ROTATION_0){
+			Thread.sleep(500);
+		}
+		mInstrumentation.waitForIdleSync();
+		assertTrue(fragment instanceof CompareChooseFragment);
 	}
 }

@@ -8,7 +8,10 @@ import helpers.Indicator;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
+import unb.mdsgpp.qualcurso.RankingFragment;
 import android.app.Instrumentation;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +19,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.view.InputEvent;
 import android.view.KeyEvent;
+import android.view.Surface;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -56,12 +60,18 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		
 		final AutoCompleteTextView course = (AutoCompleteTextView) rank.getView().findViewById(R.id.autoCompleteTextView);
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -85,12 +95,18 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		});
 		
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		mInstrumentation.waitForIdleSync();
@@ -114,12 +130,18 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 			}
 		});
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
+		course.requestFocus();
 		mInstrumentation.waitForIdleSync();
 		mInstrumentation.sendStringSync("engenharia");
 		mInstrumentation.waitForIdleSync();
-		TouchUtils.clickView(this, course);
-		mInstrumentation.waitForIdleSync();
+		if(!course.isFocused()){
+			TouchUtils.clickView(this, course);
+			mInstrumentation.waitForIdleSync();
+		}
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		mInstrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		
@@ -130,10 +152,27 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		View v = evaluationList.getChildAt(0);
 		TouchUtils.clickView(this, v);
 		Fragment evaluation = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
-		assertTrue(evaluation instanceof EvaluationDetailFragment);
-		
-		
-
-		
+		assertTrue(evaluation instanceof EvaluationDetailFragment);		
+	}
+	
+	public void testShouldTestOnSavedInstanceState() throws InterruptedException{
+		openDrawerOptionAt(2);
+		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
+		if(mActivity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+		} else {
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			mInstrumentation.waitForIdleSync();
+			mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			mInstrumentation.waitForIdleSync();
+		}
+		while(mActivity.getWindowManager().getDefaultDisplay().getRotation() != Surface.ROTATION_0){
+			Thread.sleep(500);
+		}
+		mInstrumentation.waitForIdleSync();
+		assertTrue(fragment instanceof RankingFragment);
 	}
 }
