@@ -1,6 +1,5 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
-import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CourseListFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
