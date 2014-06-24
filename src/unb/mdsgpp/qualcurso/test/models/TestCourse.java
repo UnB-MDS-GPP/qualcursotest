@@ -1,7 +1,10 @@
 package unb.mdsgpp.qualcurso.test.models;
 
 import android.database.SQLException;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.test.AndroidTestCase;
+import helpers.Indicator;
 
 import java.util.ArrayList;
 
@@ -13,6 +16,7 @@ import models.Book;
 import models.Course;
 import models.Evaluation;
 import models.Institution;
+import models.Search;
 
 public class TestCourse extends AndroidTestCase{
 
@@ -118,8 +122,16 @@ public class TestCourse extends AndroidTestCase{
 		institution.delete();
 		institution1.delete();
 	}
-	
-	
+
+	public void testShouldGetCourseInstitutionsOnDataBaseByYear() 	throws ClassNotFoundException, SQLException {
+		Evaluation [] eva = this.buildEvaluation();
+
+		assertEquals("name institution 3", Course.last().getInstitutions(2007).get(0).getAcronym());
+		assertEquals("name institution 2", Course.last().getInstitutions(2010).get(0).getAcronym());
+
+		destroyEvaluation(eva);
+	}
+
 	public void testShouldCreateCourseInstitutionOnDataBase()
 			throws ClassNotFoundException, SQLException {
 		Course course = new Course();
@@ -158,17 +170,22 @@ public class TestCourse extends AndroidTestCase{
 	public void testShouldGetCoursesByEvaluationFilter() {
 		ArrayList<Course> courses;
 		Evaluation [] eva = this.buildEvaluation();
-
-		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", 2007, 19, 21);
+		Search search = new Search();
+		search.setIndicator(Indicator.getIndicatorByValue("triennial_evaluation"));
+		search.setYear(2007);
+		search.setMinValue(19);
+		search.setMaxValue(21);
+		courses = Course.getCoursesByEvaluationFilter(search);
 		assertEquals(1, courses.size());
 		assertEquals("name course 1", courses.get(0).getName());
-		
-		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", 2007, 19, -1);
+		search.setMaxValue(-1);
+		courses = Course.getCoursesByEvaluationFilter(search);
 		assertEquals(2, courses.size());
 		assertEquals("name course 1", courses.get(0).getName());
 		assertEquals("name course 2", courses.get(1).getName());
-
-		courses = Course.getCoursesByEvaluationFilter("triennial_evaluation", 2010, 19, 31);
+		search.setYear(2010);
+		search.setMaxValue(31);
+		courses = Course.getCoursesByEvaluationFilter(search);
 		assertEquals(1, courses.size());
 		assertEquals("name course 2", courses.get(0).getName());
 		
@@ -178,22 +195,46 @@ public class TestCourse extends AndroidTestCase{
 	public void testShouldGetInstitutionsByEvaluationFilter() {
 		ArrayList<Institution> institutions;
 		Evaluation [] eva = this.buildEvaluation();
-
-		institutions = Course.getInstitutionsByEvaluationFilter(eva[0].getIdCourse(), "triennial_evaluation", 2007, 19, 21);
+		Search search = new Search();
+		search.setIndicator(Indicator.getIndicatorByValue("triennial_evaluation"));
+		search.setYear(2007);
+		search.setMinValue(19);
+		search.setMaxValue(21);
+		institutions = Course.getInstitutionsByEvaluationFilter(eva[0].getIdCourse(), search);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 1", institutions.get(0).getAcronym());
-		
-		institutions = Course.getInstitutionsByEvaluationFilter(eva[2].getIdCourse(), "triennial_evaluation", 2007, 19, -1);
+		search.setMaxValue(-1);
+		institutions = Course.getInstitutionsByEvaluationFilter(eva[2].getIdCourse(), search);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 3", institutions.get(0).getAcronym());
-
-		institutions = Course.getInstitutionsByEvaluationFilter(eva[1].getIdCourse(), "triennial_evaluation", 2010, 19, 31);
+		search.setYear(2010);
+		search.setMaxValue(31);
+		institutions = Course.getInstitutionsByEvaluationFilter(eva[1].getIdCourse(), search);
 		assertEquals(1, institutions.size());
 		assertEquals("name institution 2", institutions.get(0).getAcronym());
 
 		this.destroyEvaluation(eva);
 	}
 
+	public void testShouldWriteCourseToParcel() {
+		Course courseA = Course.last();
+
+		Bundle b = new Bundle();
+		b.putParcelable("course", courseA);
+
+		Parcel parcel = Parcel.obtain();
+		b.writeToParcel(parcel, 0);
+
+		parcel.setDataPosition(0);
+	    Bundle b2 = parcel.readBundle();
+	    b2.setClassLoader(Institution.class.getClassLoader());
+	    Course courseB = b2.getParcelable("course");
+
+	    assertEquals(courseA.getName(), courseB.getName());
+	}
+
+	/* Inside test helpers */
+	
 	private Evaluation [] buildEvaluation() {
 		Evaluation [] response = new Evaluation[3];
 		
