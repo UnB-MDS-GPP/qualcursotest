@@ -96,11 +96,10 @@ public class TestSearchByIndicator extends ActivityInstrumentationTestCase2<Main
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				filterFieldSpinner.requestFocus();
 				filterFieldSpinner.setSelection(4);
 			}
 		});
-		
+		mInstrumentation.waitForIdleSync();
 
 		TouchUtils.clickView(this, buttonSearch);
 		
