@@ -107,7 +107,7 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		mInstrumentation.waitForIdleSync();
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNotNull(evaluationList.getAdapter());
-		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
+		assertEquals("UFRN",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
 		
 	}
 	public void testShouldSeeEvaluationListFragmentOnItemSelected(){
@@ -143,7 +143,7 @@ public class TestRanking  extends ActivityInstrumentationTestCase2<MainActivity>
 		mInstrumentation.waitForIdleSync();
 		ListView evaluationList = (ListView) rank.getView().findViewById(R.id.evaluationList);
 		assertNotNull(evaluationList.getAdapter());
-		assertEquals("UFSCAR",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
+		assertEquals("UFRN",((HashMap<String, String>)evaluationList.getAdapter().getItem(0)).get("acronym"));
 		View v = evaluationList.getChildAt(0);
 		TouchUtils.clickView(this, v);
 		Fragment evaluation = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);

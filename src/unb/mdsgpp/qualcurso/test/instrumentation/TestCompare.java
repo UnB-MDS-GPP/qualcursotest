@@ -124,7 +124,7 @@ public class TestCompare extends ActivityInstrumentationTestCase2<MainActivity> 
 		ListView institutionList = (ListView) compare.getView().findViewById(
 				R.id.institutionList);
 		assertNotNull(institutionList.getAdapter());
-		assertEquals("UFBA", ((Institution) institutionList.getAdapter()
+		assertEquals("UERJ", ((Institution) institutionList.getAdapter()
 				.getItem(0)).getAcronym());
 		View v1 = institutionList.getChildAt(0);
 		View v2 = institutionList.getChildAt(1);

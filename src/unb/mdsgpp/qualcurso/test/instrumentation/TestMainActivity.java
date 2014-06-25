@@ -74,7 +74,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 		Fragment fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
 		assertTrue(fragment instanceof TabsFragment);
 		ListView lv = (ListView)fragment.getView().findViewById(android.R.id.list);
-		assertEquals("UFBA", ((TextView)lv.getChildAt(0)).getText());
+		assertEquals("ALFA", ((TextView)lv.getChildAt(0)).getText());
 		TouchUtils.clickView(this, lv.getChildAt(0));
 		this.mActivity = getActivity();
 		fragment = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.container);
