@@ -5,33 +5,21 @@ import helpers.Indicator;
 import java.sql.Date;
 import java.util.Calendar;
 
-import models.Course;
-import models.Evaluation;
-import models.Institution;
 import models.Search;
-import unb.mdsgpp.qualcurso.CompareChooseFragment;
-import unb.mdsgpp.qualcurso.CourseListFragment;
-import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.HistoryFragment;
-import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
-import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import unb.mdsgpp.qualcurso.SearchListFragment;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 public class TestSearchHistory extends
 		ActivityInstrumentationTestCase2<MainActivity> {
@@ -97,7 +85,7 @@ public class TestSearchHistory extends
 				.findFragmentById(R.id.container);
 		ListView historyList = (ListView) history.getView().findViewById(
 				R.id.listHistory);
-		int t;
+
 		Search s = (Search) historyList.getAdapter()
 				.getItem(Search.count() - 1);
 		assertEquals(s.getId(), Search.last().getId());

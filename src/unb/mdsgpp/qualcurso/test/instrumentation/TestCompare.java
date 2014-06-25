@@ -1,15 +1,10 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
-import java.util.HashMap;
-
 import models.Institution;
 import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CompareShowFragment;
-import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
-import unb.mdsgpp.qualcurso.RankingFragment;
-import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;

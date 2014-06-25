@@ -2,22 +2,17 @@ package unb.mdsgpp.qualcurso.test.instrumentation;
 
 import java.util.HashMap;
 
-import models.Course;
-import models.Evaluation;
-import helpers.Indicator;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
 import unb.mdsgpp.qualcurso.RankingFragment;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.View;

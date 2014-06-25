@@ -1,10 +1,6 @@
 package unb.mdsgpp.qualcurso.test.instrumentation;
 
-import java.util.ArrayList;
-
 import models.Evaluation;
-import models.Institution;
-import android.annotation.SuppressLint;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
@@ -12,26 +8,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
-import android.test.UiThreadTest;
 import android.view.Surface;
 import android.view.View;
-import android.webkit.WebView.FindListener;
-import android.widget.AutoCompleteTextView;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
-import unb.mdsgpp.qualcurso.CompareChooseFragment;
 import unb.mdsgpp.qualcurso.CourseListFragment;
 import unb.mdsgpp.qualcurso.EvaluationDetailFragment;
 import unb.mdsgpp.qualcurso.InstitutionListFragment;
 import unb.mdsgpp.qualcurso.MainActivity;
 import unb.mdsgpp.qualcurso.R;
-import unb.mdsgpp.qualcurso.SearchByIndicatorFragment;
 import unb.mdsgpp.qualcurso.TabsFragment;
 
 public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActivity> {
