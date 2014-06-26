@@ -59,7 +59,7 @@ public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActiv
 
 	public void testShouldOnSectionAttachedSetTheActivityTitle() {
 		this.mActivity.onSectionAttached(1);
-		assertEquals(this.mActivity.getString(R.string.app_name), this.mActivity.getActionBar().getTitle());
+		assertEquals(this.mActivity.getString(R.string.app_name).toString(), this.mActivity.getActionBar().getTitle().toString());
 	}
 
 	public void testShouldonNavigationDrawerItemSelectedSetInstitutionListFragment() {
