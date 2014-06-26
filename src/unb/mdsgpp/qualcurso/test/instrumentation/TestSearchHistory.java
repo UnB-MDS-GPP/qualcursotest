@@ -88,7 +88,7 @@ public class TestSearchHistory extends
 
 		Search s = (Search) historyList.getAdapter()
 				.getItem(Search.count() - 1);
-		assertEquals(s.getId(), Search.last().getId());
+		assertEquals(s.getId(), Search.first().getId());
 	}
 
 	public void testShouldTheTenthSearchMade() {
@@ -99,7 +99,7 @@ public class TestSearchHistory extends
 				R.id.listHistory);
 		if (historyList.getAdapter().getCount() == 10) {
 			Search s = (Search) historyList.getAdapter().getItem(9);
-			assertEquals(s.getId(), Search.last().getId());
+			assertEquals(s.getId(), Search.first().getId());
 		}
 	}
 
