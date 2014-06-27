@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- EMMA v2.0.5312 report, generated Thu Jun 26 16:47:26 BRT 2014 -->
+<?xml version="1.0" encoding="UTF-8"?><!-- EMMA v2.0.5312 report, generated Thu Jun 26 23:45:55 BRT 2014 -->
 
 <report>
   <stats>
     <packages value="4"/>
     <classes value="44"/>
-    <methods value="409"/>
+    <methods value="419"/>
     <srcfiles value="30"/>
-    <srclines value="2050"/>
+    <srclines value="2096"/>
   </stats>
   <data>
     <all name="all classes">
       <coverage type="class, %" value="100% (44/44)"/>
-      <coverage type="method, %" value="96%  (391/409)"/>
-      <coverage type="block, %" value="94%  (8385/8913)"/>
-      <coverage type="line, %" value="94%  (1936,5/2050)"/>
+      <coverage type="method, %" value="95%  (397/419)"/>
+      <coverage type="block, %" value="94%  (8552/9102)"/>
+      <coverage type="line, %" value="94%  (1975,5/2096)"/>
 
       <package name="unb.mdsgpp.qualcurso">
         <coverage type="class, %" value="100% (31/31)"/>
-        <coverage type="method, %" value="93%  (183/196)"/>
-        <coverage type="block, %" value="90%  (3879/4312)"/>
-        <coverage type="line, %" value="91%  (922,7/1014)"/>
+        <coverage type="method, %" value="92%  (189/206)"/>
+        <coverage type="block, %" value="90%  (4046/4501)"/>
+        <coverage type="line, %" value="91%  (961,7/1060)"/>
 
         <srcfile name="HistoryFragment.java">
           <coverage type="class, %" value="100% (2/2)"/>
@@ -495,66 +495,17 @@
             </method>
           </class>
         </srcfile>
-        <srcfile name="TabsFragment.java">
-          <coverage type="class, %" value="100% (1/1)"/>
-          <coverage type="method, %" value="100% (7/7)"/>
-          <coverage type="block, %" value="86%  (153/177)"/>
-          <coverage type="line, %" value="84%  (37/44)"/>
-
-          <class name="TabsFragment">
-            <coverage type="class, %" value="100% (1/1)"/>
-            <coverage type="method, %" value="100% (7/7)"/>
-            <coverage type="block, %" value="86%  (153/177)"/>
-            <coverage type="line, %" value="84%  (37/44)"/>
-
-            <method name="onAttach (Activity): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="39%  (9/23)"/>
-              <coverage type="line, %" value="67%  (4/6)"/>
-            </method>
-            <method name="onTabChanged (String): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="64%  (16/25)"/>
-              <coverage type="line, %" value="56%  (5/9)"/>
-            </method>
-            <method name="setupTabs (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="98%  (56/57)"/>
-              <coverage type="line, %" value="91%  (10/11)"/>
-            </method>
-            <method name="TabsFragment (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (3/3)"/>
-              <coverage type="line, %" value="100% (1/1)"/>
-            </method>
-            <method name="onActivityCreated (Bundle): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (20/20)"/>
-              <coverage type="line, %" value="100% (6/6)"/>
-            </method>
-            <method name="onCreateView (LayoutInflater, ViewGroup, Bundle): View">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (18/18)"/>
-              <coverage type="line, %" value="100% (4/4)"/>
-            </method>
-            <method name="updateTab (String, int): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (31/31)"/>
-              <coverage type="line, %" value="100% (7/7)"/>
-            </method>
-          </class>
-        </srcfile>
         <srcfile name="CompareListAdapter.java">
           <coverage type="class, %" value="100% (1/1)"/>
           <coverage type="method, %" value="75%  (3/4)"/>
-          <coverage type="block, %" value="88%  (147/167)"/>
-          <coverage type="line, %" value="88%  (32,5/37)"/>
+          <coverage type="block, %" value="88%  (141/161)"/>
+          <coverage type="line, %" value="88%  (31,5/36)"/>
 
           <class name="CompareListAdapter">
             <coverage type="class, %" value="100% (1/1)"/>
             <coverage type="method, %" value="75%  (3/4)"/>
-            <coverage type="block, %" value="88%  (147/167)"/>
-            <coverage type="line, %" value="88%  (32,5/37)"/>
+            <coverage type="block, %" value="88%  (141/161)"/>
+            <coverage type="line, %" value="88%  (31,5/36)"/>
 
             <method name="CompareListAdapter (Context, int): void">
               <coverage type="method, %" value="0%   (0/1)"/>
@@ -563,8 +514,8 @@
             </method>
             <method name="getView (int, View, ViewGroup): View">
               <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="90%  (132/147)"/>
-              <coverage type="line, %" value="91%  (26,5/29)"/>
+              <coverage type="block, %" value="89%  (126/141)"/>
+              <coverage type="line, %" value="91%  (25,5/28)"/>
             </method>
             <method name="&lt;static initializer&gt;">
               <coverage type="method, %" value="100% (1/1)"/>
@@ -578,11 +529,95 @@
             </method>
           </class>
         </srcfile>
+        <srcfile name="TabsFragment.java">
+          <coverage type="class, %" value="100% (1/1)"/>
+          <coverage type="method, %" value="93%  (13/14)"/>
+          <coverage type="block, %" value="90%  (322/359)"/>
+          <coverage type="line, %" value="88%  (76/86)"/>
+
+          <class name="TabsFragment">
+            <coverage type="class, %" value="100% (1/1)"/>
+            <coverage type="method, %" value="93%  (13/14)"/>
+            <coverage type="block, %" value="90%  (322/359)"/>
+            <coverage type="line, %" value="88%  (76/86)"/>
+
+            <method name="onQueryTextSubmit (String): boolean">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/2)"/>
+              <coverage type="line, %" value="0%   (0/1)"/>
+            </method>
+            <method name="onAttach (Activity): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="39%  (9/23)"/>
+              <coverage type="line, %" value="67%  (4/6)"/>
+            </method>
+            <method name="onTabChanged (String): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="64%  (16/25)"/>
+              <coverage type="line, %" value="56%  (5/9)"/>
+            </method>
+            <method name="onQueryTextChange (String): boolean">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="84%  (58/69)"/>
+              <coverage type="line, %" value="85%  (11/13)"/>
+            </method>
+            <method name="setupTabs (): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="98%  (56/57)"/>
+              <coverage type="line, %" value="91%  (10/11)"/>
+            </method>
+            <method name="TabsFragment (): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (9/9)"/>
+              <coverage type="line, %" value="100% (3/3)"/>
+            </method>
+            <method name="castToCourses (ArrayList): ArrayList">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (22/22)"/>
+              <coverage type="line, %" value="100% (5/5)"/>
+            </method>
+            <method name="castToInstitutions (ArrayList): ArrayList">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (22/22)"/>
+              <coverage type="line, %" value="100% (5/5)"/>
+            </method>
+            <method name="getFilteredList (String, ArrayList): ArrayList">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (28/28)"/>
+              <coverage type="line, %" value="100% (6/6)"/>
+            </method>
+            <method name="onActivityCreated (Bundle): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (23/23)"/>
+              <coverage type="line, %" value="100% (7/7)"/>
+            </method>
+            <method name="onCreateOptionsMenu (Menu, MenuInflater): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (21/21)"/>
+              <coverage type="line, %" value="100% (6/6)"/>
+            </method>
+            <method name="onCreateView (LayoutInflater, ViewGroup, Bundle): View">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (18/18)"/>
+              <coverage type="line, %" value="100% (4/4)"/>
+            </method>
+            <method name="setupSearchView (MenuItem): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (9/9)"/>
+              <coverage type="line, %" value="100% (3/3)"/>
+            </method>
+            <method name="updateTab (String, int): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (31/31)"/>
+              <coverage type="line, %" value="100% (7/7)"/>
+            </method>
+          </class>
+        </srcfile>
         <srcfile name="NavigationDrawerFragment.java">
           <coverage type="class, %" value="100% (4/4)"/>
           <coverage type="method, %" value="93%  (25/27)"/>
-          <coverage type="block, %" value="89%  (397/446)"/>
-          <coverage type="line, %" value="88%  (87,6/100)"/>
+          <coverage type="block, %" value="90%  (401/446)"/>
+          <coverage type="line, %" value="89%  (88,6/100)"/>
 
           <class name="NavigationDrawerFragment$2">
             <coverage type="class, %" value="100% (1/1)"/>
@@ -609,8 +644,8 @@
           <class name="NavigationDrawerFragment">
             <coverage type="class, %" value="100% (1/1)"/>
             <coverage type="method, %" value="90%  (18/20)"/>
-            <coverage type="block, %" value="92%  (336/367)"/>
-            <coverage type="line, %" value="91%  (73,6/81)"/>
+            <coverage type="block, %" value="93%  (340/367)"/>
+            <coverage type="line, %" value="92%  (74,6/81)"/>
 
             <method name="access$102 (NavigationDrawerFragment, boolean): boolean">
               <coverage type="method, %" value="0%   (0/1)"/>
@@ -626,11 +661,6 @@
               <coverage type="method, %" value="100% (1/1)"/>
               <coverage type="block, %" value="60%  (9/15)"/>
               <coverage type="line, %" value="67%  (4/6)"/>
-            </method>
-            <method name="onOptionsItemSelected (MenuItem): boolean">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="64%  (7/11)"/>
-              <coverage type="line, %" value="67%  (2/3)"/>
             </method>
             <method name="setUp (int, DrawerLayout): void">
               <coverage type="method, %" value="100% (1/1)"/>
@@ -697,6 +727,11 @@
               <coverage type="block, %" value="100% (6/6)"/>
               <coverage type="line, %" value="100% (3/3)"/>
             </method>
+            <method name="onOptionsItemSelected (MenuItem): boolean">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (11/11)"/>
+              <coverage type="line, %" value="100% (3/3)"/>
+            </method>
             <method name="onSaveInstanceState (Bundle): void">
               <coverage type="method, %" value="100% (1/1)"/>
               <coverage type="block, %" value="100% (9/9)"/>
@@ -745,6 +780,115 @@
               <coverage type="method, %" value="100% (1/1)"/>
               <coverage type="block, %" value="100% (5/5)"/>
               <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+          </class>
+        </srcfile>
+        <srcfile name="MainActivity.java">
+          <coverage type="class, %" value="100% (1/1)"/>
+          <coverage type="method, %" value="74%  (14/19)"/>
+          <coverage type="block, %" value="92%  (306/334)"/>
+          <coverage type="line, %" value="86%  (81/94)"/>
+
+          <class name="MainActivity">
+            <coverage type="class, %" value="100% (1/1)"/>
+            <coverage type="method, %" value="74%  (14/19)"/>
+            <coverage type="block, %" value="92%  (306/334)"/>
+            <coverage type="line, %" value="86%  (81/94)"/>
+
+            <method name="closeApplication (): void">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/5)"/>
+              <coverage type="line, %" value="0%   (0/3)"/>
+            </method>
+            <method name="onConfigurationChanged (Configuration): void">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/4)"/>
+              <coverage type="line, %" value="0%   (0/2)"/>
+            </method>
+            <method name="onQueryTextChange (String): boolean">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/2)"/>
+              <coverage type="line, %" value="0%   (0/1)"/>
+            </method>
+            <method name="onQueryTextSubmit (String): boolean">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/2)"/>
+              <coverage type="line, %" value="0%   (0/1)"/>
+            </method>
+            <method name="setupSearchView (MenuItem): void">
+              <coverage type="method, %" value="0%   (0/1)"/>
+              <coverage type="block, %" value="0%   (0/9)"/>
+              <coverage type="line, %" value="0%   (0/3)"/>
+            </method>
+            <method name="onOptionsItemSelected (MenuItem): boolean">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="73%  (11/15)"/>
+              <coverage type="line, %" value="67%  (4/6)"/>
+            </method>
+            <method name="onNavigationDrawerItemSelected (int): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="98%  (109/111)"/>
+              <coverage type="line, %" value="97%  (33/34)"/>
+            </method>
+            <method name="&lt;static initializer&gt;">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (5/5)"/>
+              <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+            <method name="MainActivity (): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (6/6)"/>
+              <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+            <method name="aboutApplication (): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (4/4)"/>
+              <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+            <method name="getFormatedTitle (CharSequence): CharSequence">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (24/24)"/>
+              <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+            <method name="onBeanListItemSelected (Fragment): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (13/13)"/>
+              <coverage type="line, %" value="100% (3/3)"/>
+            </method>
+            <method name="onBeanListItemSelected (Fragment, int): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (11/11)"/>
+              <coverage type="line, %" value="100% (3/3)"/>
+            </method>
+            <method name="onCreate (Bundle): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (41/41)"/>
+              <coverage type="line, %" value="100% (9/9)"/>
+            </method>
+            <method name="onCreateOptionsMenu (Menu): boolean">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (17/17)"/>
+              <coverage type="line, %" value="100% (5/5)"/>
+            </method>
+            <method name="onSaveInstanceState (Bundle): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (14/14)"/>
+              <coverage type="line, %" value="100% (4/4)"/>
+            </method>
+            <method name="onSearchBeanSelected (Search, Parcelable): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (34/34)"/>
+              <coverage type="line, %" value="100% (5/5)"/>
+            </method>
+            <method name="onSectionAttached (int): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (3/3)"/>
+              <coverage type="line, %" value="100% (2/2)"/>
+            </method>
+            <method name="restoreActionBar (): void">
+              <coverage type="method, %" value="100% (1/1)"/>
+              <coverage type="block, %" value="100% (14/14)"/>
+              <coverage type="line, %" value="100% (5/5)"/>
             </method>
           </class>
         </srcfile>
@@ -976,100 +1120,6 @@
               <coverage type="method, %" value="100% (1/1)"/>
               <coverage type="block, %" value="100% (13/13)"/>
               <coverage type="line, %" value="100% (3/3)"/>
-            </method>
-          </class>
-        </srcfile>
-        <srcfile name="MainActivity.java">
-          <coverage type="class, %" value="100% (1/1)"/>
-          <coverage type="method, %" value="88%  (14/16)"/>
-          <coverage type="block, %" value="95%  (306/321)"/>
-          <coverage type="line, %" value="91%  (81/89)"/>
-
-          <class name="MainActivity">
-            <coverage type="class, %" value="100% (1/1)"/>
-            <coverage type="method, %" value="88%  (14/16)"/>
-            <coverage type="block, %" value="95%  (306/321)"/>
-            <coverage type="line, %" value="91%  (81/89)"/>
-
-            <method name="closeApplication (): void">
-              <coverage type="method, %" value="0%   (0/1)"/>
-              <coverage type="block, %" value="0%   (0/5)"/>
-              <coverage type="line, %" value="0%   (0/3)"/>
-            </method>
-            <method name="onConfigurationChanged (Configuration): void">
-              <coverage type="method, %" value="0%   (0/1)"/>
-              <coverage type="block, %" value="0%   (0/4)"/>
-              <coverage type="line, %" value="0%   (0/2)"/>
-            </method>
-            <method name="onOptionsItemSelected (MenuItem): boolean">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="73%  (11/15)"/>
-              <coverage type="line, %" value="67%  (4/6)"/>
-            </method>
-            <method name="onNavigationDrawerItemSelected (int): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="98%  (109/111)"/>
-              <coverage type="line, %" value="97%  (33/34)"/>
-            </method>
-            <method name="&lt;static initializer&gt;">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (5/5)"/>
-              <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="MainActivity (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (6/6)"/>
-              <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="aboutApplication (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (4/4)"/>
-              <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="getFormatedTitle (CharSequence): CharSequence">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (24/24)"/>
-              <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="onBeanListItemSelected (Fragment): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (13/13)"/>
-              <coverage type="line, %" value="100% (3/3)"/>
-            </method>
-            <method name="onBeanListItemSelected (Fragment, int): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (11/11)"/>
-              <coverage type="line, %" value="100% (3/3)"/>
-            </method>
-            <method name="onCreate (Bundle): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (41/41)"/>
-              <coverage type="line, %" value="100% (9/9)"/>
-            </method>
-            <method name="onCreateOptionsMenu (Menu): boolean">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (17/17)"/>
-              <coverage type="line, %" value="100% (5/5)"/>
-            </method>
-            <method name="onSaveInstanceState (Bundle): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (14/14)"/>
-              <coverage type="line, %" value="100% (4/4)"/>
-            </method>
-            <method name="onSearchBeanSelected (Search, Parcelable): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (34/34)"/>
-              <coverage type="line, %" value="100% (5/5)"/>
-            </method>
-            <method name="onSectionAttached (int): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (3/3)"/>
-              <coverage type="line, %" value="100% (2/2)"/>
-            </method>
-            <method name="restoreActionBar (): void">
-              <coverage type="method, %" value="100% (1/1)"/>
-              <coverage type="block, %" value="100% (14/14)"/>
-              <coverage type="line, %" value="100% (5/5)"/>
             </method>
           </class>
         </srcfile>
