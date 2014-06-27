@@ -5,9 +5,14 @@ import unb.mdsgpp.qualcurso.MainActivity;
 import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.view.KeyEvent;
 import android.view.Surface;
+import android.view.View;
+import android.widget.ListView;
 import unb.mdsgpp.qualcurso.R;
 
 
@@ -29,6 +34,8 @@ public class TestAbout extends ActivityInstrumentationTestCase2<MainActivity> {
 	}
 
 	public void testShouldOpenAboutFragmentOnMenu() throws InterruptedException {
+		openDrawerOptionAt(0);
+
 		// Click the menu option
 		sendKeys(KeyEvent.KEYCODE_MENU);
 		mInstrumentation.invokeMenuActionSync(mActivity, R.id.action_about, 0);
@@ -55,5 +62,17 @@ public class TestAbout extends ActivityInstrumentationTestCase2<MainActivity> {
 
 		mInstrumentation.waitForIdleSync();
 		assertTrue(fragment instanceof AboutFragment);
+	}
+
+	public void openDrawerOptionAt(int position){
+		Fragment nd = this.mActivity.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+		DrawerLayout mDrawerLayout = (DrawerLayout) mActivity.findViewById(R.id.drawer_layout);
+
+		if(!mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+			View v = nd.getView().focusSearch(View.FOCUS_FORWARD);
+			TouchUtils.clickView(this, v);
+		}
+		ListView nl = (ListView)nd.getView().findViewById(R.id.navigation_list_view);
+		TouchUtils.clickView(this, nl.getChildAt(position));
 	}
 }
